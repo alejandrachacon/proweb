@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Si ya tiene sesion iniciada no tiene sentido volver a mostrar el login, por lo tanto se redirige al usuario a otra persona
+// Si ya tiene sesion iniciada no tiene sentido volver a mostrar el login, por lo tanto se redirige al usuario a otra pagina
 if (isset($_SESSION['rol']))
 {
 	// Si es admin, redirigir a mensajes.php
