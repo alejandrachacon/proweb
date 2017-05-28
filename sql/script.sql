@@ -165,8 +165,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-/* INSERTS */
-INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('admin','torres.jeffrey@javeriana.edu.co','Passw0rd#','admin');
-INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('jeff','torres.jeff@hotmail.com','Passw0rd#','usuario');
