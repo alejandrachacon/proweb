@@ -18,10 +18,10 @@ session_start();
         echo '<a href="mensajes.php">Mensajes</a>';
     }
   ?>
-  <a class="active" href="eventos.php">Eventos</a>
+  <a href="eventos.php">Eventos</a>
   <a href="salas.php">Salas</a>
   <a href="equipos.php">Equipos</a>
-  <a href="libros.php">Libros</a>
+  <a class="active" href="libros.php">Libros</a>
   <?php
 		if (isset($_SESSION['rol']))
 		{

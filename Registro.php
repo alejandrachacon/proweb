@@ -52,19 +52,19 @@ body {margin:0;}
 	  <form class="w3-container" action="/proweb/index.php">
 	    <p>      
 	    <label class="w3-text-green"><b>Nombre de Usuario</b></label>
-	    <input class="w3-input w3-border w3-sand" name="username" type="text">
+	    <input class="w3-input w3-border w3-sand" name="username" type="text" required>
       </p>
       <p>      
       <label class="w3-text-green"><b>Email</b></label>
-      <input class="w3-input w3-border w3-sand" name="email" type="text">
+      <input class="w3-input w3-border w3-sand" name="email" type="text" required>
       </p>
       <p>      
       <label class="w3-text-green"><b>Confirmar Email</b></label>
-      <input class="w3-input w3-border w3-sand" name="emailconfirm" type="text">
+      <input class="w3-input w3-border w3-sand" name="emailconfirm" type="text" required>
       </p>
 	    <p>      
 	    <label class="w3-text-green"><b>Contraseña</b></label>
-	    <input class="w3-input w3-border w3-sand" name="password" type="text"></p>
+	    <input class="w3-input w3-border w3-sand" name="password" type="text" required></p>
 	    <p>
 	    <button class="w3-btn w3-green" type="submit">Registrarse</button>
 	    </p>
