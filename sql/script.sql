@@ -166,3 +166,15 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+/* INSERTS */
+
+-- EQUIPOS
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`, `url_imagen`) VALUES ('XPS','Dell',1,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg');
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`, `url_imagen`) VALUES ('XPS','Dell',0,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg');
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`, `url_imagen`) VALUES ('XPS','Dell',1,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg');
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`) VALUES ('Zenbook','Asus',1);
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`) VALUES ('Zenbook','Asus',1);
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`) VALUES ('Zenbook','Asus',1);
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponible`) VALUES ('Zenbook','Asus',0);

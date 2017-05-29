@@ -11,8 +11,11 @@ session_start();
 <body>
 
 <div class="topnav">
-  <a href="index.php">Inicio</a>
   <?php
+    if (!isset($_SESSION['rol']))
+    {
+      echo '<a href="index.php">Inicio</a>';
+    }
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a href="mensajes.php">Mensajes</a>';
@@ -29,13 +32,59 @@ session_start();
 		}
 	?>
 </div>
+<div class="w3-container" >
+  <table class="w3-table-all w3-centered">
+  <tr>
+    <th>Imagen</th>
+    <th>Fabricante</th>
+    <th>Referencia</th>
+    <th>Disponibles</th>
+  </tr>
+  <?php
+    include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
+    $html = "";
+    $equipos = get_equipos();
+    while($row = mysqli_fetch_array($equipos))
+    {
+      $html .= "<tr>";
+      $html .= "<td>";
+      if ($row['url_imagen'] != null)
+      {
+        $html .= "<img src='" . $row['url_imagen'] . "' width='20%'/>";
+      }
+      else
+      {
+        $html .= "<img src='http://placehold.it/350x150' width='20%'/>";
+      }
+      $html .= "</td>";
+      $html .= "<td>" . $row['fabricante'] . "</td>";
+      $html .= "<td>" . $row['nombre'] . "</td>";
+      $html .= "<td>" . $row['disponibles'] . "</td>";
+      if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
+      {
+        $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+      }
+      
+      if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
+      {
+        $html .= "<td>" . '<a href="equipos/actualizar.php">Actualizar</a>' . "</td>";
+        $html .= "<td>" . '<a href="equipos/eliminar.php">Eliminar</a>' . "</td>";
+      }
+      $html .= "</tr>";
+    }
 
-<div style="padding-left:16px">
-	<br>
-	<br>
-   	
-    
+    echo $html;
+  ?>
+  
+  </table>
+  <br>
+  <?php
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
+    {
+      echo '<a href="equipos/agregar.php">Agregar</a>';
+    }
+  ?>
+  
 </div>
-
 </body>
 </html>

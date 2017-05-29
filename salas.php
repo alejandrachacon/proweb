@@ -11,8 +11,11 @@ session_start();
 <body>
 
 <div class="topnav">
-  <a href="index.php">Inicio</a>
   <?php
+    if (!isset($_SESSION['rol']))
+    {
+      echo '<a href="index.php">Inicio</a>';
+    }
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a href="mensajes.php">Mensajes</a>';

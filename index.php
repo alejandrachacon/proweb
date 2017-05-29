@@ -20,8 +20,8 @@ if (isset($_SESSION['rol']))
 // Si se lleno el formulario de login
 if (isset($_POST['username']))
 {
-	include_once "utils.php";
-	include_once "db.php";
+	include_once dirname(__FILE__) . "/utils.php";
+	include_once dirname(__FILE__) . "/db.php";
 	// Limpiar la entrada para prevenir SQL injection
 	$username = limpiar_entrada($_POST['username']);
 	$password = limpiar_entrada($_POST['password']);

@@ -15,8 +15,11 @@ if ($_SESSION['rol'] != 'admin')
 </head>
 <body>
 <div class="topnav">
-  <a href="index.php">Inicio</a>
   <?php
+    if (!isset($_SESSION['rol']))
+    {
+      echo '<a href="index.php">Inicio</a>';
+    }
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a class="active" href="mensajes.php">Mensajes</a>';
