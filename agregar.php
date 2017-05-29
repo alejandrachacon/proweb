@@ -30,12 +30,20 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numer
     {
       $fileName = uniqid();
       $fileName = "uploads/" . $fileName . ".jpg";
+      if (!file_exists('uploads/'))
+      {
+        mkdir('uploads/', 0777, true);
+      }
       move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
     }
     else if ($imageType == 3) // 3 = png
     {
       $fileName = uniqid();
       $fileName = "uploads/" . $fileName . ".png";
+      if (!file_exists('uploads/'))
+      {
+        mkdir('uploads/', 0777, true);
+      }
       move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
     }
     else
@@ -70,12 +78,20 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
     {
       $fileName = uniqid();
       $fileName = "uploads/" . $fileName . ".jpg";
+      if (!file_exists('uploads/'))
+      {
+        mkdir('uploads/', 0777, true);
+      }
       move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
     }
     else if ($imageType == 3) // 3 = png
     {
       $fileName = uniqid();
       $fileName = "uploads/" . $fileName . ".png";
+      if (!file_exists('uploads/'))
+      {
+        mkdir('uploads/', 0777, true);
+      }
       move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
     }
     else
