@@ -19,6 +19,7 @@ session_start();
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a href="mensajes.php">Mensajes</a>';
+        echo '<a href="reportes.php">Reportes</a>';
     }
   ?>
   <a href="eventos.php">Eventos</a>
@@ -116,7 +117,7 @@ session_start();
           }
           $html .= "</td>";
         }
-        if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
+        if (isset($_SESSION['rol']) && $row['disponibles'] > 0) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
         {
           $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
         }
@@ -141,6 +142,7 @@ session_start();
       echo '<a href="agregar.php?tipo=equipo">Agregar</a>';
     }
   ?>
+  <br><br>
   
 </div>
 </body>

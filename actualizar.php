@@ -1,5 +1,11 @@
 <?php
 session_start();
+// Verificar que solo pueda entrar el admin
+if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin'))
+{
+  header('Location: index.php');
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +29,7 @@ session_start();
     }
   ?>
   <a href="eventos.php">Eventos</a>
-  <a class="active" href="salas.php">Salas</a>
+  <a href="salas.php">Salas</a>
   <a href="equipos.php">Equipos</a>
   <a href="libros.php">Libros</a>
   <?php
@@ -32,13 +38,6 @@ session_start();
 			echo '<a href="logout.php">Log out</a>';
 		}
 	?>
-</div>
-
-<div style="padding-left:16px">
-	<br>
-	<br>
-   	
-    
 </div>
 
 </body>

@@ -108,6 +108,7 @@ if (isset($_POST['solicitud'], $_POST['decision'], $_POST['usuario'], $_POST['ti
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a class="active" href="mensajes.php">Mensajes</a>';
+        echo '<a href="reportes.php">Reportes</a>';
     }
   ?>
   <a href="eventos.php">Eventos</a>

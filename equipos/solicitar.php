@@ -46,6 +46,7 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
         echo '<a href="../mensajes.php">Mensajes</a>';
+        echo '<a href="../reportes.php">Reportes</a>';
     }
   ?>
   <a href="../eventos.php">Eventos</a>
