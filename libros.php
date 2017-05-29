@@ -120,13 +120,13 @@ session_start();
         }
         if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
         {
-          $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+          $html .= "<td>" . "<a href='solicitar.php?tipo=libro&autor=" . $row['autor'] . "&titulo=" . $row['titulo'] . "&isbn=" . $row['isbn'] . "'>Solicitar</a>" . "</td>";
         }
         
         if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
         {
-          $html .= "<td>" . '<a href="equipos/actualizar.php">Actualizar</a>' . "</td>";
-          $html .= "<td>" . '<a href="equipos/eliminar.php">Eliminar</a>' . "</td>";
+          $html .= "<td>" . '<a href="actualizar.php">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="eliminar.php">Eliminar</a>' . "</td>";
         }
         $html .= "</tr>";
       }
