@@ -15,11 +15,11 @@ if (mysqli_connect_errno())
 function get_equipos()
 {
   global $con;
-  $sql = "SELECT nombre, fabricante, url_imagen, COUNT(*) as disponibles FROM equipos WHERE disponible = 1 GROUP BY fabricante, nombre";
+  $sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos";
   
   $result = mysqli_query($con, $sql);
 
-  mysqli_close($con);
+  //mysqli_close($con);
   return $result;
 }
 
@@ -28,7 +28,7 @@ function get_equipos()
 function get_equipo_disponible($fabricante, $nombre)
 {
   global $con;
-  $sql = "SELECT serie FROM equipos WHERE disponible = 1 AND fabricante = '$fabricante' AND nombre = '$nombre'";
+  $sql = "SELECT serie FROM equipos WHERE disponibles > 0 AND fabricante = '$fabricante' AND nombre = '$nombre'";
   
   $result = mysqli_query($con, $sql);
 
@@ -56,7 +56,7 @@ function solicitar_equipo($usuario, $fabricante, $nombre, $fechaPrestamo)
   }
 
   $fechaPrestamo .= ":00" ;
-  $sql = "INSERT INTO `solicitudes`(`usuario`, `equipos_serie`, `tipo`, `fecha_prestamo`,`estado`) VALUES ('$usuario', " . $serie['serie'] . ", 'equipo', '$fechaPrestamo', 'solicitado')";
+  $sql = "INSERT INTO `solicitudes`(`usuario`, `equipos_nombre`, `tipo`, `fecha_prestamo`,`estado`) VALUES ('$usuario', '" . $nombre . "', 'equipo', '$fechaPrestamo', 'solicitado')";
   
   if (!mysqli_query($con, $sql))
   {
@@ -64,16 +64,6 @@ function solicitar_equipo($usuario, $fabricante, $nombre, $fechaPrestamo)
     echo mysqli_error($con);
     return false;
   }
-
-
-  /*$update = "UPDATE equipos SET disponible = 0 WHERE serie = " . $serie['serie'] . " LIMIT 1";
-
-  if (!mysqli_query($con, $update))
-  {
-    echo "update error<br>";
-    echo mysqli_error($con);
-    return false;
-  }*/
 
   return true;
 

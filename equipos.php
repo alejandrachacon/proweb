@@ -42,46 +42,67 @@ session_start();
   </tr>
   <?php
     include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
+    include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
     $html = "";
-    $equipos = get_equipos();
-    while($row = mysqli_fetch_array($equipos))
+    $equipos = get_equipos(); // buscar todos los equipos que al menos tengan 1 disponible
+    if ($equipos)
     {
-      $html .= "<tr>";
-      $html .= "<td>";
-      if ($row['url_imagen'] != null)
+      while($row = mysqli_fetch_array($equipos)) // Tomar cada fila del resultado y mostrarlo como una fila de la tabla
       {
-        $html .= "<img src='" . $row['url_imagen'] . "' width='20%'/>";
+        $html .= "<tr>";
+        $html .= "<td>";
+        if ($row['url_imagen'] != null) // Si el equipo tiene una imagen, mostrarla
+        {
+          $html .= "<img src='" . $row['url_imagen'] . "' width='20%'/>";
+        }
+        else // Si el equipo no tiene imagen, se utiliza un placeholder
+        {
+          $html .= "<img src='http://placehold.it/350x150' width='20%'/>";
+        }
+        $html .= "</td>";
+        $html .= "<td>" . $row['fabricante'] . "</td>";
+        $html .= "<td>" . $row['nombre'] . "</td>";
+        if ($row['disponibles'] > 0)
+        {
+          $html .= "<td>" . $row['disponibles'] . "</td>";
+        }
+        else
+        {
+          $html .= "<td>";
+          $equipo = get_equipo_mascercano_vencer($row['nombre']);
+          if ($equipo)
+          {
+            $html .= "Disponible: " . $equipo['fecha_vencimiento'];
+          }
+          else
+          {
+            $html .= "0";
+          }
+          $html .= "</td>";
+        }
+        if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
+        {
+          $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+        }
+        
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
+        {
+          $html .= "<td>" . '<a href="equipos/actualizar.php">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="equipos/eliminar.php">Eliminar</a>' . "</td>";
+        }
+        $html .= "</tr>";
       }
-      else
-      {
-        $html .= "<img src='http://placehold.it/350x150' width='20%'/>";
-      }
-      $html .= "</td>";
-      $html .= "<td>" . $row['fabricante'] . "</td>";
-      $html .= "<td>" . $row['nombre'] . "</td>";
-      $html .= "<td>" . $row['disponibles'] . "</td>";
-      if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
-      {
-        $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
-      }
-      
-      if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
-      {
-        $html .= "<td>" . '<a href="equipos/actualizar.php">Actualizar</a>' . "</td>";
-        $html .= "<td>" . '<a href="equipos/eliminar.php">Eliminar</a>' . "</td>";
-      }
-      $html .= "</tr>";
     }
 
     echo $html;
-  ?>
-  
+  ?>  
   </table>
   <br>
+
   <?php
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
-      echo '<a href="equipos/agregar.php">Agregar</a>';
+      echo '<a href="agregar.php">Agregar</a>';
     }
   ?>
   

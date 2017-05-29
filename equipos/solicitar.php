@@ -8,9 +8,11 @@ if (!isset($_SESSION['rol'])) // Solo se puede solicitar si tiene sesion iniciad
 
 $msg = "";
 
+// Verificar si se hizo un POST para solicitar un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
 {
   include_once dirname(__FILE__) . "/equipos_crud.php";
+  // Llamar la funcion que registra la solicitud, esta funcion esta en equipos_crud.php
   if (solicitar_equipo($_SESSION['usuario'], $_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
   {
     $msg = "<span style='color: green;'>Solicitud enviada con exito</span>";
@@ -19,6 +21,8 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
   {
     $msg = "<span style='color: red;'>Hubo un error al realizar la solicitud</span>";
   }
+
+  // TODO: enviar correo de notificacion al admin
 }
 ?>
 <!DOCTYPE html>
@@ -55,6 +59,7 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
 		}
 	?>
 </div>
+
 <div class="w3-container" >
   <h3><?php echo $msg; ?></h3>
   <h2>Formato de solicitud</h2>
@@ -67,7 +72,7 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
 
     <label>Fecha de prestamo</label>
     <br>
-    <input id="fechaPrestamo" name="fechaPrestamo" type="datetime-local" class="form-control">
+    <input id="fechaPrestamo" name="fechaPrestamo" type="datetime-local" class="form-control" readonly>
     <br>
     <br>
     <input type="submit" value="Solicitar">
