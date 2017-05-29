@@ -39,18 +39,5 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
 	?>
 </div>
 
-<table class="w3-table">
-<tr class="w3-red">
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Points</th>
-</tr>
-<tr>
-  <td>Jill</td>
-  <td>Smith</td>
-  <td>50</td>
-</tr>
-</table>
-
 </body>
 </html>

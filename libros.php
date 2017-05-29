@@ -39,6 +39,12 @@ session_start();
    	
     
 </div>
+  <?php
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
+    {
+      echo '<a href="agregar.php?tipo=libro">Agregar</a>';
+    }
+  ?>
 
 </body>
 </html>

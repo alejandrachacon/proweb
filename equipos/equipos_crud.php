@@ -44,6 +44,7 @@ function get_equipo_disponible($fabricante, $nombre)
 }
 
 // Registrar una solicitud para pedir un equipo
+// TODO: mover a solicitudes/solicitudes_crud.php
 function solicitar_equipo($usuario, $fabricante, $nombre, $fechaPrestamo)
 {
   global $con;
@@ -60,13 +61,24 @@ function solicitar_equipo($usuario, $fabricante, $nombre, $fechaPrestamo)
   
   if (!mysqli_query($con, $sql))
   {
-    echo "insert error<br>";
-    echo mysqli_error($con);
     return false;
   }
 
   return true;
 
+}
+
+function crear_equipo($fabricante, $nombre, $serie, $disponibles, $fileName)
+{
+  global $con;
+  $sql = "INSERT INTO `equipos`(`nombre`, `serie`, `fabricante`, `disponibles`, `total`, `url_imagen`) VALUES ('$nombre', $serie, '$fabricante', $disponibles, $disponibles, '$fileName')";
+  
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
 }
 
 ?>

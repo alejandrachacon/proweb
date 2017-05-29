@@ -102,7 +102,7 @@ session_start();
   <?php
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
-      echo '<a href="agregar.php">Agregar</a>';
+      echo '<a href="agregar.php?tipo=equipo">Agregar</a>';
     }
   ?>
   
