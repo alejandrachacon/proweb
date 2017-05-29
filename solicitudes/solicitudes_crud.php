@@ -40,6 +40,27 @@ function get_equipo_mascercano_vencer($nombre)
   return $row;
 }
 
+// Retorna el libro mas cercano a vencer
+function get_libro_mascercano_vencer($nombre)
+{
+  global $con;
+  $sql = "SELECT * FROM `solicitudes` WHERE estado='prestado' AND `libros_isbn`='$nombre' ORDER BY `fecha_vencimiento` ASC";
+
+  $result = mysqli_query($con, $sql);
+  if (mysqli_num_rows($result) <= 0)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result); // Tomar el primer resultado, que por el order by es el mas cercano a vencer
+  return $row;
+}
+
+
+
+
+
+
 // Retorna una solicitud dado su id, si no encuentra la solicitud retorna false
 function get_solicitud_id($idSolicitud)
 {

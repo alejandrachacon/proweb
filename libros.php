@@ -38,6 +38,104 @@ session_start();
 	<br>
    	
     
+<form method="get" class="w3-container" action="libros.php">
+    <input type="text" name="search_term" title="Search…" value="">
+    <input type="submit" name="search" title="Busque ya!" value="Buscar" class="searchbutton" />
+    <a href="busquedaAvanzada.php?tipo=libro"> Búsqueda Avanzada </a>
+</form>
+
+<br>
+
+  <table class="w3-table-all w3-centered">
+  <tr>
+    <th>Imagen</th>
+    <th>Titulo</th>
+    <th>Editorial</th>
+    <th>Disponibles</th>
+  </tr>
+  <?php
+    include_once dirname(__FILE__) . "/libros/libros_crud.php";
+    include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
+   
+
+
+    $html = "";
+    if(isset($_GET['search_term']) && isset($_GET['search']))
+    {
+
+        $libros = search($_GET['search_term']);
+
+
+        if(!$libros){
+
+              $html .= "<br> <h1> No se encontraron coincidencias</h1> ";
+              $equipos = get_libros();
+
+        }
+
+    }
+    else{
+
+        $libros = get_libros(); // buscar todos los libros que al menos tengan 1 disponible
+
+    }
+
+
+    if ($libros)
+    {
+      while($row = mysqli_fetch_array($libros)) // Tomar cada fila del resultado y mostrarlo como una fila de la tabla
+      {
+        $html .= "<tr>";
+        $html .= "<td>";
+        if ($row['url_imagen'] != null) // Si el equipo tiene una imagen, mostrarla
+        {
+          $html .= "<img src='" . $row['url_imagen'] . "' width='20%'/>";
+        }
+        else // Si el equipo no tiene imagen, se utiliza un placeholder
+        {
+          $html .= "<img src='http://placehold.it/350x150' width='20%'/>";
+        }
+        $html .= "</td>";
+        $html .= "<td>" . $row['titulo'] . "</td>";
+        $html .= "<td>" . $row['editorial'] . "</td>";
+
+        if ($row['disponibles'] > 0)
+        {
+          $html .= "<td>" . $row['disponibles'] . "</td>";
+        }
+        else
+        {
+          $html .= "<td>";
+          $libros = get_libro_mascercano_vencer($row['isbn']);
+          if ($libros)
+          {
+            $html .= "Disponible: " . $equipo['fecha_vencimiento'];
+          }
+          else
+          {
+            $html .= "0";
+          }
+          $html .= "</td>";
+        }
+        if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
+        {
+          $html .= "<td>" . "<a href='equipos/solicitar.php?fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+        }
+        
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
+        {
+          $html .= "<td>" . '<a href="equipos/actualizar.php">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="equipos/eliminar.php">Eliminar</a>' . "</td>";
+        }
+        $html .= "</tr>";
+      }
+    }
+
+    echo $html;
+  ?>  
+  </table>
+  <br>
+
 </div>
   <?php
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')

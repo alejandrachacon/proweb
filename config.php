@@ -5,10 +5,16 @@ define('USUARIO_PASS','');
 define('HOST_DB', '10.34.1.37');
 define('NOMBRE_DB', 'trycrying');*/
 
-// Local
-define('USUARIO_DB', 'root');
+// Local jeff
+/*define('USUARIO_DB', 'root');
 define('USUARIO_PASS','');
 define('HOST_DB', '127.0.0.1');
-define('NOMBRE_DB', 'mydb');
+define('NOMBRE_DB', 'mydb');*/
+
+//Local Ale
+define ('USUARIO_DB', 'alejandrachacon');
+define('USUARIO_PASS','qwerty$$78');
+define('HOST_DB', '192.168.56.1');
+define('NOMBRE_DB', 'miDB');
 
 ?>

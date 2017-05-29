@@ -33,6 +33,19 @@ session_start();
 	?>
 </div>
 <div class="w3-container" >
+
+<br>
+<br>
+
+
+<form method="get" class="w3-container" action="equipos.php">
+    <input type="text" name="search_term" title="Search…" value="">
+    <input type="submit" name="search" title="Busque ya!" value="Buscar" class="searchbutton" />
+    <a href="busquedaAvanzada.php?tipo=equipo"> Búsqueda Avanzada </a>
+</form>
+
+<br>
+
   <table class="w3-table-all w3-centered">
   <tr>
     <th>Imagen</th>
@@ -43,8 +56,31 @@ session_start();
   <?php
     include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
     include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
+    include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
+
+
     $html = "";
-    $equipos = get_equipos(); // buscar todos los equipos que al menos tengan 1 disponible
+    if(isset($_GET['search_term']) && isset($_GET['search']))
+    {
+
+        $equipos = search($_GET['search_term']);
+
+
+        if(!$equipos){
+
+              $html .= "<br> <h1> ".$equipos." </h1> ";
+              $equipos = get_equipos();
+
+        }
+
+    }
+    else{
+
+        $equipos = get_equipos(); // buscar todos los equipos que al menos tengan 1 disponible
+
+    }
+
+
     if ($equipos)
     {
       while($row = mysqli_fetch_array($equipos)) // Tomar cada fila del resultado y mostrarlo como una fila de la tabla
