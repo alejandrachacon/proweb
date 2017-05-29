@@ -1,5 +1,11 @@
 <?php
 session_start();
+// Verificar que solo pueda entrar el admin
+if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin'))
+{
+  header('Location: index.php');
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +31,7 @@ session_start();
   <a href="eventos.php">Eventos</a>
   <a href="salas.php">Salas</a>
   <a href="equipos.php">Equipos</a>
-  <a class="active" href="libros.php">Libros</a>
+  <a href="libros.php">Libros</a>
   <?php
 		if (isset($_SESSION['rol']))
 		{
@@ -33,19 +39,6 @@ session_start();
 		}
 	?>
 </div>
-
-<div style="padding-left:16px">
-	<br>
-	<br>
-   	
-    
-</div>
-  <?php
-    if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
-    {
-      echo '<a href="agregar.php?tipo=libro">Agregar</a>';
-    }
-  ?>
 
 </body>
 </html>

@@ -132,4 +132,45 @@ function declinar_solicitud($idSolicitud)
   return true;
 }
 
+// Busca todos los items que un usuario tiene prestado (eg. no tienen el estado "devuelto" o )
+function get_prestados_usuario($usuario, $tipo)
+{
+  global $con;
+
+  $sql = "SELECT * FROM `solicitudes` WHERE estado <> 'devuelto' AND estado <> 'rechazado' AND estado <> 'solicitado' AND usuario='$usuario' AND tipo='$tipo' ORDER BY fecha_prestamo ASC";
+  
+  $result = mysqli_query($con, $sql);
+
+  if (!$result)
+  {
+    return false;
+  }
+
+  return $result;
+}
+
+//$solicitud = buscar_solicitud($_POST['usuario'], $_POST['tipo'], $_POST['item']);
+function buscar_solicitud($usuario, $tipo, $item)
+{
+  global $con;
+  $sql = "";
+  if ($tipo == 'equipo')
+  {
+    $sql = "SELECT * FROM solicitudes WHERE usuario='$usuario' AND tipo='$tipo' AND equipos_nombre='$item' AND estado <> 'rechazado' AND estado <> 'devuelto'";
+  }
+  else if ($tipo == 'libro')
+  {
+    $sql = "SELECT * FROM solicitudes WHERE usuario='$usuario' AND tipo='$tipo' AND libros_isbn='$item'";
+  }
+
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result);
+  return $row;
+}
+
 ?>
