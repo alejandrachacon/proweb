@@ -10,6 +10,7 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
 $msg = "";
 
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
+include_once dirname(__FILE__) . "/libros/libros_crud.php";
 
 // Verificar si estamos agregando un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']))
@@ -54,7 +55,42 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numer
 // Verificar si estamos agregando un libro
 else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['copias']))
 {
-  // TODO: logic...
+  // Verificar que no haya error subiendo la imagen
+  if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] > 0)
+  {
+    $msg = "<span style='color: red'>Error subiendo imagen</span>";
+  }
+  // Generar un nombre unico para la imagen
+  $fileName = null;
+  if (file_exists($_FILES['imagen']['tmp_name'])) // Verificar que se haya subido la imagen
+  {
+    // Check file type
+    $imageType = exif_imagetype($_FILES['imagen']['tmp_name']);
+    if ($imageType == 2) // 2 = jpeg
+    {
+      $fileName = uniqid();
+      $fileName = "uploads/" . $fileName . ".jpg";
+      move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
+    }
+    else if ($imageType == 3) // 3 = png
+    {
+      $fileName = uniqid();
+      $fileName = "uploads/" . $fileName . ".png";
+      move_uploaded_file($_FILES['imagen']['tmp_name'], $fileName);
+    }
+    else
+    {
+      $msg = "<span style='color: red'>Sólo se aceptan imágenes jpeg o png.</span>";
+    }
+  }
+  if (crear_libro($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['copias'], $fileName))
+  {
+    $msg = "<span style='color: green'>Libro agregado</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al agregar libro</span>";
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -109,7 +145,25 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    // TODO: form de libros
+    $html .= "<form class='w3-container' action='agregar.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<label>Autor</label>";
+    $html .= "<input class='w3-input' type='text' name='autor' required/>";
+    $html .= "<label>Titulo</label>";
+    $html .= "<input class='w3-input' type='text' name='titulo' required/>";
+    $html .= "<label>ISBN</label>";
+    $html .= "<input class='w3-input' type='text' name='isbn' required/><br>";
+    $html .= "<label>Editorial</label>";
+    $html .= "<input class='w3-input' type='text' name='editorial' required/>";
+    $html .= "<label>Edicion</label>";
+    $html .= "<input class='w3-input' type='number' name='edicion' required/><br>";
+    $html .= "<label># de páginas</label>";
+    $html .= "<input class='w3-input' type='number' name='paginas' required/><br>";
+    $html .= "<label># de copias</label>";
+    $html .= "<input class='w3-input' type='number' name='copias' required/><br>";
+    $html .= "<label>Imagen</label>";
+    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+    $html .= "<input type='submit' value='Agregar' />";
+    $html .= "</form>";
   }
   // Formulario de equipos
   else
