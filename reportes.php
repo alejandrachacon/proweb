@@ -22,7 +22,14 @@ if (isset($_POST['reporte'], $_POST['item'], $_POST['estado'], $_POST['tipo'], $
     $result = crear_reporte($solicitud['id'], $_POST['estado'], $_POST['comentario']);
     if ($result === 'deteriorado')
     {
-      $msg = "<span style='color: red'>El " . $_POST['tipo'] . " no se puede devolver porque está deteriorado</span>";
+      if ($_POST['tipo'] == 'sala')
+      {
+        $msg = "<span style='color: red'>La " . $_POST['tipo'] . " no se puede devolver porque está deteriorada</span>";
+      }
+      else
+      {
+        $msg = "<span style='color: red'>El " . $_POST['tipo'] . " no se puede devolver porque está deteriorado</span>";
+      }
     }
     else if ($result)
     {
@@ -83,6 +90,7 @@ if (isset($_POST['reporte'], $_POST['item'], $_POST['estado'], $_POST['tipo'], $
     <select name="tipo">
       <option value="equipo">Equipo</option>
       <option value="libro">Libro</option>
+      <option value="sala">Sala</option>
     </select>
     <br><br>
     <input type="submit" name="buscar" value="Buscar">
@@ -110,6 +118,10 @@ if (isset($_POST['reporte'], $_POST['item'], $_POST['estado'], $_POST['tipo'], $
           else if ($row['tipo'] == 'libro' && $_POST['tipo'] == 'libro')
           {
             $html .= "<option value='" . $row['libros_isbn'] . "'>" . $row['libros_isbn'] . "</option>";
+          }
+          else if ($row['tipo'] == 'sala' && $_POST['tipo'] == 'sala')
+          {
+            $html .= "<option value='" . $row['sala_nombre'] . "'>" . $row['sala_nombre'] . "</option>";
           }
         }
         $html .= "</select><br>";

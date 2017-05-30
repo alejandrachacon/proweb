@@ -40,6 +40,26 @@ function get_equipo_mascercano_vencer($nombre)
   return $row;
 }
 
+// Retorna el sala mas cercano a vencer
+function get_sala_mascercano_vencer($nombre)
+{
+  global $con;
+  $sql = "SELECT * FROM `solicitudes` WHERE estado <> 'rechazado' AND estado <> 'devuelto' AND estado <> 'solicitado' AND `sala_nombre`='$nombre' ORDER BY `fecha_vencimiento` ASC";
+
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+  if (mysqli_num_rows($result) <= 0)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result); // Tomar el primer resultado, que por el order by es el mas cercano a vencer
+  return $row;
+}
+
 // Retorna el libro mas cercano a vencer
 function get_libro_mascercano_vencer($nombre)
 {
@@ -115,11 +135,11 @@ function aprobar_libro($idSolicitud, $usuario, $tipo, $fechaVencimiento, $isbn, 
 }
 
 // Aprueba la solicitud de una sala y actualiza el total de disponibles a disponibles-1
-function aprobar_sala($idSolicitud, $usuario, $tipo, $fechaVencimiento, $nombre, $reporteCada)
+function aprobar_sala($idSolicitud, $usuario, $tipo, $fechaVencimiento, $nombre)
 {
   global $con;
   
-  $updateDisponibles = "UPDATE `sala` SET `disponibles`=disponibles-1 WHERE `disponibles` > 0 AND `nombre`='$nombre' LIMIT 1";
+  $updateDisponibles = "UPDATE `sala` SET `disponible`=0 WHERE `disponible`=1 AND `nombre`='$nombre' LIMIT 1";
   if (!mysqli_query($con, $updateDisponibles))
   {
     return false;
@@ -177,6 +197,10 @@ function buscar_solicitud($usuario, $tipo, $item)
   else if ($tipo == 'libro')
   {
     $sql = "SELECT * FROM solicitudes WHERE usuario='$usuario' AND tipo='$tipo' AND libros_isbn='$item'";
+  }
+  else if ($tipo == 'sala')
+  {
+    $sql = "SELECT * FROM solicitudes WHERE usuario='$usuario' AND tipo='$tipo' AND sala_nombre='$item'";
   }
 
   $result = mysqli_query($con, $sql);

@@ -1,32 +1,31 @@
 <?php
 session_start();
 
-
-
+ include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
 
   if ($_SERVER['REQUEST_METHOD']=='POST'){
 
   
 
-      $nombre=$fabricante="";
+      $nombre=$fabricante=$disponibles="";
 
        if(isset($_POST['nombre'])){
 
           $nombre = $_POST['nombre'];
+        }
 
-          if(isset($_POST['fabricante'])){
+      if(isset($_POST['fabricante'])){
 
             $fabricante = $_POST['fabricante'];
+        }
 
-            if (isset($_POST['disponibles'])){
+      if (isset($_POST['disponibles'])){
 
               $disponibles = $_POST['disponibles']; 
                 
-            }
-
-          }
-
         }
+
+      $equipos= fullsearche($nombre,$fabricante,$disponibles);
 
   }
 
@@ -110,7 +109,11 @@ session_start();
     }
     else{
 
+      if ($_SERVER['REQUEST_METHOD']!='POST') {
+        # code...
         $equipos = get_equipos(); // buscar todos los equipos que al menos tengan 1 disponible
+      }
+
 
     }
 
@@ -152,6 +155,10 @@ session_start();
         if (isset($_SESSION['rol']) && $row['disponibles'] > 0) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
         {
           $html .= "<td>" . "<a href='solicitar.php?tipo=equipo&fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+        }
+        else
+        {
+          $html .= "<td></td>";
         }
         
         if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin

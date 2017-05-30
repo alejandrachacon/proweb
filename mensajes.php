@@ -63,7 +63,7 @@ if (isset($_POST['solicitud'], $_POST['decision'], $_POST['usuario'], $_POST['ti
     // Si es una sala, llamar la funcion de aprobar solicitud de sala
     else if ($_POST['tipo'] == 'sala')
     {
-      if (aprobar_sala($_POST['solicitud'], $_POST['usuario'], $_POST['tipo'], $_POST['fechaVencimiento'], $reporteCada))
+      if (aprobar_sala($_POST['solicitud'], $_POST['usuario'], $_POST['tipo'], $_POST['fechaVencimiento'], $_POST['sala_id']))
       {
         $msg = "<span style='color: green'>Solicitud aprobada</span>";
       }
@@ -153,8 +153,8 @@ if (isset($_POST['solicitud'], $_POST['decision'], $_POST['usuario'], $_POST['ti
       }
       else if ($row['tipo'] == 'sala')
       {
-        $html .= "<label>ID Sala:</label>";
-        $html .= "<input class='w3-input' type='text' name='sala_id' value='" . $row['sala_id'] . "' readonly/>";
+        $html .= "<label>Nombre sala:</label>";
+        $html .= "<input class='w3-input' type='text' name='sala_id' value='" . $row['sala_nombre'] . "' readonly/>";
       }
 
 

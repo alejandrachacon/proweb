@@ -9,8 +9,9 @@ if (!isset($_SESSION['rol'])) // Solo se puede solicitar si tiene sesion iniciad
 $msg = "";
 include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
+include_once dirname(__FILE__) . "/salas/salas_crud.php";
 // Verificar si se hizo un POST para solicitar un equipo
-if (isset($_POST['tipo'], $_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
+if (isset($_POST['tipo'], $_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']) && $_POST['tipo'] == 'equipo')
 {
   // Llamar la funcion que registra la solicitud, esta funcion esta en equipos_crud.php
   if (solicitar_equipo($_SESSION['usuario'], $_POST['fabricante'], $_POST['nombre'], $_POST['fechaPrestamo']))
@@ -24,9 +25,20 @@ if (isset($_POST['tipo'], $_POST['fabricante'], $_POST['nombre'], $_POST['fechaP
 
   // TODO: enviar correo de notificacion al admin
 }
-else if (isset($_POST['tipo'], $_POST['isbn'], $_POST['fechaPrestamo']))
+else if (isset($_POST['tipo'], $_POST['isbn'], $_POST['fechaPrestamo']) && $_POST['tipo'] == 'libro')
 {
   if (solicitar_libro($_SESSION['usuario'], $_POST['isbn'], $_POST['fechaPrestamo']))
+  {
+    $msg = "<span style='color: green;'>Solicitud enviada con exito</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red;'>Hubo un error al realizar la solicitud</span>";
+  }
+}
+else if (isset($_POST['tipo'], $_POST['nombre'], $_POST['fechaPrestamo']) && $_POST['tipo'] == 'sala')
+{
+  if (solicitar_sala($_SESSION['usuario'], $_POST['nombre'], $_POST['fechaPrestamo']))
   {
     $msg = "<span style='color: green;'>Solicitud enviada con exito</span>";
   }
@@ -117,6 +129,23 @@ else if (isset($_POST['tipo'], $_POST['isbn'], $_POST['fechaPrestamo']))
         <input type="hidden" name="tipo" value="<?php if (isset($_GET['tipo'])) echo $_GET['tipo']; else echo 'equipo';?>">
         <input type="submit" value="Solicitar">
       </form>
+  <?php
+    }
+    else if (isset($_GET['tipo']) && $_GET['tipo'] == 'sala')
+    {
+  ?>
+    <form class="w3-container" action="solicitar.php?tipo=sala&nombre=<?php if (isset($_GET['nombre'])) echo $_GET['nombre']; ?>" method="POST" style="width: 50%">
+      <label>Nombre</label>
+      <input name="nombre" class="w3-input" type="text" value="<?php if (isset($_GET['nombre'])) echo $_GET['nombre'] ?>" readonly required>
+
+      <label>Fecha de prestamo</label>
+      <br>
+      <input id="fechaPrestamo" name="fechaPrestamo" type="datetime-local" class="form-control" readonly>
+      <br>
+      <br>
+      <input type="hidden" name="tipo" value="<?php if (isset($_GET['tipo'])) echo $_GET['tipo']; else echo 'equipo';?>">
+      <input type="submit" value="Solicitar">
+    </form>
   <?php
     }
   ?>

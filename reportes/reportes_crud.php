@@ -63,6 +63,10 @@ function crear_reporte($solicitud, $estado, $comentario)
     {
       $sql = "UPDATE libros SET disponibles=disponibles+1 WHERE isbn='$libro'";
     }
+    else if ($tipo == 'sala')
+    {
+      $sql = "UPDATE sala SET disponible=1 WHERE nombre='$sala'";
+    }
     
     if (!mysqli_query($con, $sql))
     {
