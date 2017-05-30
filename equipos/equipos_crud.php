@@ -81,4 +81,33 @@ function crear_equipo($fabricante, $nombre, $serie, $disponibles, $fileName)
   return true;
 }
 
+function actualizar_equipo($fabricante, $nombre, $serie, $disponibles, $total, $fileName)
+{
+  global $con;
+  $sql = "UPDATE `equipos` SET `serie`=$serie,`fabricante`='$fabricante',`disponibles`=$disponibles, `total`=$total,`url_imagen`='$fileName' WHERE `nombre`='$nombre'";
+  
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+
+function buscar_equipo($nombre)
+{
+  global $con;
+  $sql = "SELECT * FROM equipos WHERE nombre='$nombre'";
+  
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result);
+  return $row;
+}
+
 ?>
