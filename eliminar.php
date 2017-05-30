@@ -7,7 +7,7 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
   exit();
 }
 
-if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro'))
+if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro' && $_GET['tipo'] != 'sala'))
 {
   header('Location: index.php');
   exit();
@@ -17,9 +17,10 @@ $msg = "";
 
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
 include_once dirname(__FILE__) . "/libros/libros_crud.php";
+include_once dirname(__FILE__) . "/salas/salas_crud.php";
 
 // Verificar si estamos eliminando un equipo
-if (isset($_POST['eliminar'], $_POST['nombre']))
+if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'equipo')
 {
   if (eliminar_equipo($_POST['nombre']))
   {
@@ -40,6 +41,18 @@ else if (isset($_POST['eliminar'], $_POST['isbn']))
   else
   {
     $msg = "<span style='color: red'>Error al eliminar libro</span>";
+  }
+}
+// Verificar si estamos eliminando una sala
+else if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
+{
+  if (eliminar_sala($_POST['nombre']))
+  {
+    $msg = "<span style='color: green'>Sala eliminada</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al eliminar sala</span>";
   }
 }
 ?>
@@ -66,7 +79,7 @@ else if (isset($_POST['eliminar'], $_POST['isbn']))
   ?>
   <a href="eventos.php">Eventos</a>
   <a href="salas.php">Salas</a>
-  <a class="active" href="equipos.php">Equipos</a>
+  <a href="equipos.php">Equipos</a>
   <a href="libros.php">Libros</a>
   <?php
 		if (isset($_SESSION['rol']))
@@ -107,7 +120,7 @@ else if (isset($_POST['eliminar'], $_POST['isbn']))
     }
   }
   // Formulario de equipos
-  else
+  else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo')
   {
     $equipo = buscar_equipo($_GET['nombre']);
     
@@ -124,6 +137,20 @@ else if (isset($_POST['eliminar'], $_POST['isbn']))
       $html .= "<input class='w3-input' type='number' name='disponible' value='" . $equipo['disponibles'] . "' required readonly/><br>";
       $html .= "<label># total de equipos</label>";
       $html .= "<input class='w3-input' type='number' name='numeroEquipos' value='" . $equipo['total'] . "' required readonly/><br>";
+      $html .= "<input type='submit' name='eliminar' value='Eliminar' />";
+      $html .= "</form>";
+    }
+  }
+  // Formulario de salas
+  else if (isset($_GET['tipo']) && $_GET['tipo'] == 'sala')
+  {
+    $sala = buscar_sala($_GET['nombre']);
+    
+    if ($sala)
+    {
+      $html .= "<form class='w3-container' action='eliminar.php?tipo=sala&nombre=" . $sala['nombre'] . "' method='post' style='width: 50%'>";
+      $html .= "<label>Nombre</label>";
+      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $sala['nombre'] . "' required readonly/><br>";
       $html .= "<input type='submit' name='eliminar' value='Eliminar' />";
       $html .= "</form>";
     }

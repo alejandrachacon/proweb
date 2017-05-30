@@ -138,7 +138,7 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['p
   ?>
   <a href="eventos.php">Eventos</a>
   <a href="salas.php">Salas</a>
-  <a class="active" href="equipos.php">Equipos</a>
+  <a href="equipos.php">Equipos</a>
   <a href="libros.php">Libros</a>
   <?php
 		if (isset($_SESSION['rol']))

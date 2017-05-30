@@ -90,6 +90,7 @@ session_start();
 
 
     $html = "";
+    $salas = null;
     if(isset($_GET['search_term']) && isset($_GET['search']))
     {
 

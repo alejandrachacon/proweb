@@ -116,9 +116,15 @@ function buscar_sala($nombre)
 function eliminar_sala($nombre)
 {
   global $con;
-  $sql = "UPDATE sala SET disponible=-1 WHERE nombre='$nombre' LIMIT 1";
+  $sql = "UPDATE sala SET `disponible`=-1 WHERE nombre='$nombre' LIMIT 1";
 
-  return mysqli_query($con, $sql);
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+
+  return true;
 }
 
 

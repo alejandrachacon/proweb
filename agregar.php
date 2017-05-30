@@ -14,7 +14,7 @@ include_once dirname(__FILE__) . "/libros/libros_crud.php";
 include_once dirname(__FILE__) . "/salas/salas_crud.php";
 
 // Verificar si estamos agregando un equipo
-if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']))
+if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']) && $_GET['tipo'] == 'equipo')
 {
   // Verificar que no haya error subiendo la imagen
   if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] > 0)
@@ -109,6 +109,7 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
     $msg = "<span style='color: red'>Error al agregar libro</span>";
   }
 }
+// Verificar si estamos agregando una sala
 else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
 {
   if (crear_sala($_POST['nombre']))
@@ -144,7 +145,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
   ?>
   <a href="eventos.php">Eventos</a>
   <a href="salas.php">Salas</a>
-  <a class="active" href="equipos.php">Equipos</a>
+  <a href="equipos.php">Equipos</a>
   <a href="libros.php">Libros</a>
   <?php
 		if (isset($_SESSION['rol']))
