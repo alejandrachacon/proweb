@@ -56,11 +56,12 @@ session_start();
   </tr>
   <?php
     include_once dirname(__FILE__) . "/libros/libros_crud.php";
+    include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
     include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
     include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
    
 
-
+    $libros = null;
     $html = "";
     if(isset($_GET['search_term']) && isset($_GET['search']))
     {
