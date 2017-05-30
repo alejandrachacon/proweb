@@ -197,5 +197,5 @@ INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('admin','a
 INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('test','test@email.com','Passw0rd#','usuario');
 
 -- Equipos
-INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `url_imagen`) VALUES ('XPS','Dell',3,4,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg');
-INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`) VALUES ('Zenbook','Asus',4,4);
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `url_imagen`, `serie`) VALUES ('XPS','Dell',3,4,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg', 1);
+INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`. `serie`) VALUES ('Zenbook','Asus',4,4, 2);
