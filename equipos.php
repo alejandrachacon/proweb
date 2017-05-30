@@ -81,7 +81,6 @@ session_start();
 
     }
 
-
     if ($equipos)
     {
       while($row = mysqli_fetch_array($equipos)) // Tomar cada fila del resultado y mostrarlo como una fila de la tabla
