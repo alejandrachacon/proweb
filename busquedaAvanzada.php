@@ -5,10 +5,6 @@ session_start();
   include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
 
 
-  }
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -56,7 +52,6 @@ session_start();
   <input type="submit" value="Cargar">
 </form>
 
-<?php echo $msg; ?>
 <br>
 <h3>Buscar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else echo "Equipo"; ?></h3>
 <?php

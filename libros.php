@@ -1,32 +1,42 @@
 <?php
 session_start();
 
+
+ include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
+
 if ($_SERVER['REQUEST_METHOD']=='POST'){
 
-  if (isset($_GET['tipo']) && $_GET['tipo']=='libro'){
-     
 
-      $titulo = $editorial = $autor = "";
+      $titulo = $editorial = $autor = $disponibles ="";
 
 
         if(isset($_POST['titulo'])){ 
 
            $titulo = $_POST['titulo'];
+           
+        }
 
-              if(isset($_POST['editorial'])){
+        if(isset($_POST['editorial'])){
 
                    $editorial = $_POST['editorial'];
 
-                    if(isset($_POST['autor'])){
+        }
+
+        if(isset($_POST['autor'])){
 
                        $autor= $_POST['autor'];
 
+          }
 
-                    }
-              }
-        }
-              fullsearchl($titulo,$autor,$editorial,$disponibles);
-  }
+         if(isset($_POST['disponibles'])){
+
+                        $disponibles = $_POST['disponibles'];
+
+          }
+ 
+
+         $libros = fullsearchl($titulo,$autor,$editorial,$disponibles);
+  
 }
 
 
@@ -112,7 +122,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     }
     else{
 
-        $libros = get_libros(); // buscar todos los libros que al menos tengan 1 disponible
+      if($_SERVER['REQUEST_METHOD']!='POST')
+      {
+          $libros = get_libros();
+      }
+
+         // buscar todos los libros que al menos tengan 1 disponible
 
     }
 

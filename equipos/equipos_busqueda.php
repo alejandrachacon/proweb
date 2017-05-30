@@ -33,9 +33,9 @@ function searche($search_term)
 
 function fullsearche($nombre,$fabricante,$disponibles){
 
-	global $con ;
+	global $con;
 
-	$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%$nombre%') AND (fabricante LIKE '%$fabricante%') AND (disponibles LIKE '%$disponibles%')";
+	$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%".$nombre."%') AND (fabricante LIKE '%".$fabricante."%') AND (disponibles LIKE '%".$disponibles."%')";
 
 	$results = mysqli_query($con,$sql);
 
