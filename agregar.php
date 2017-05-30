@@ -11,6 +11,7 @@ $msg = "";
 
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
 include_once dirname(__FILE__) . "/libros/libros_crud.php";
+include_once dirname(__FILE__) . "/salas/salas_crud.php";
 
 // Verificar si estamos agregando un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']))
@@ -108,6 +109,17 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
     $msg = "<span style='color: red'>Error al agregar libro</span>";
   }
 }
+else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
+{
+  if (crear_sala($_POST['nombre']))
+  {
+    $msg = "<span style='color: green'>Sala agregada</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al agregar sala</span>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -149,6 +161,7 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
   <select name="tipo" form="escoger_tipo">
     <option value="equipo">Equipo</option>
     <option value="libro">Libro</option>
+    <option value="sala">Sala</option>
   </select>
   <br><br>
   <input type="submit" value="Cargar">
@@ -156,13 +169,13 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
 
 <?php echo $msg; ?>
 <br>
-<h3>Agregar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else echo "Equipo"; ?></h3>
+<h3>Agregar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo') echo "Equipo"; else echo "Sala" ?></h3>
 <?php
   $html = "";
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    $html .= "<form class='w3-container' action='agregar.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='agregar.php?tipo=libro' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Autor</label>";
     $html .= "<input class='w3-input' type='text' name='autor' required/>";
     $html .= "<label>Titulo</label>";
@@ -183,9 +196,9 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
     $html .= "</form>";
   }
   // Formulario de equipos
-  else
+  else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo')
   {
-    $html .= "<form class='w3-container' action='agregar.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='agregar.php?tipo=equipo' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Fabricante</label>";
     $html .= "<input class='w3-input' type='text' name='fabricante' required/>";
     $html .= "<label>Nombre</label>";
@@ -196,6 +209,15 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
     $html .= "<input class='w3-input' type='number' name='numeroEquipos' required/><br>";
     $html .= "<label>Imagen</label>";
     $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+    $html .= "<input type='submit' value='Agregar' />";
+    $html .= "</form>";
+  }
+  // Formulario de sala
+  else if (isset($_GET['tipo']) && $_GET['tipo'] == 'sala')
+  {
+    $html .= "<form class='w3-container' action='agregar.php?tipo=sala' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<label>Nombre</label>";
+    $html .= "<input class='w3-input' type='text' name='nombre' required/><br>";
     $html .= "<input type='submit' value='Agregar' />";
     $html .= "</form>";
   }

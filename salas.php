@@ -163,7 +163,7 @@ session_start();
     if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin')
     {
       // No tiene sentido agregar una sala
-      //echo '<a href="agregar.php?tipo=sala">Agregar</a>';
+      echo '<a href="agregar.php?tipo=sala">Agregar</a>';
     }
   ?>
   <br><br>

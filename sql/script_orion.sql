@@ -205,4 +205,3 @@ INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `serie`) V
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Baron',1);
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala B',1);
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala A',1);
-INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala B',1);
