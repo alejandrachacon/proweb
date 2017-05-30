@@ -19,7 +19,7 @@ function search($search_term)
 	$RESULTS_LIMIT=10;
 	global $con;
 
-	$sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE titulo LIKE '%".$search_term."%' ";
+	$sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE total > 0 AND titulo LIKE '%".$search_term."%' ";
 	$results = mysqli_query($con,$sql);
 			 
 	return $results;

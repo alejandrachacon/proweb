@@ -15,7 +15,7 @@ if (mysqli_connect_errno())
 function get_libros()
 {
   global $con;
-  $sql = "SELECT isbn,titulo,autor,editorial,paginas,disponibles,total, url_imagen FROM libros";
+  $sql = "SELECT isbn,titulo,autor,editorial,paginas,disponibles,total, url_imagen FROM libros WHERE total > 0";
   
   $result = mysqli_query($con, $sql);
 
@@ -51,7 +51,7 @@ function actualizar_libro($titulo, $autor, $editorial, $paginas, $isbn, $disponi
 function buscar_libro($isbn)
 {
   global $con;
-  $sql = "SELECT * FROM libros WHERE isbn='$isbn'";
+  $sql = "SELECT * FROM libros WHERE isbn='$isbn' AND total > 0";
   
   $result = mysqli_query($con, $sql);
   if (!$result)
@@ -61,6 +61,14 @@ function buscar_libro($isbn)
 
   $row = mysqli_fetch_array($result);
   return $row;
+}
+
+function eliminar_libro($isbn)
+{
+  global $con;
+  $sql = "UPDATE libros SET total=-1 WHERE isbn='$isbn' LIMIT 1";
+
+  return mysqli_query($con, $sql);
 }
 
 ?>
