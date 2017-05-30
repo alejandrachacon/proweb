@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         if(isset($_POST['titulo'])){ 
 
            $titulo = $_POST['titulo'];
-           
+
         }
 
         if(isset($_POST['editorial'])){
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
    
 
-    $libros = null;
+   // $libros = null;
     $html = "";
     if(isset($_GET['search_term']) && isset($_GET['search']))
     { 
