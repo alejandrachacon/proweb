@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
   </tr>
   <?php
     include_once dirname(__FILE__) . "/libros/libros_crud.php";
-    include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
+    //include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
     include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
     include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
    

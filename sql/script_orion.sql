@@ -193,9 +193,16 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 /* INSERTS */
+-- Usuarios
 INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('admin','admin@email.com','Passw0rd#','admin');
 INSERT INTO `usuarios`(`usuario`, `email`, `password`, `rol`) VALUES ('test','test@email.com','Passw0rd#','usuario');
 
 -- Equipos
 INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `url_imagen`, `serie`) VALUES ('XPS','Dell',3,4,'http://i.dell.com/sites/imagecontent/consumer/merchandizing/en/PublishingImages/Franchise-category/xps-family-polaris-sub-cat-franchise-laptops-mod-06.jpg', 1);
 INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `serie`) VALUES ('Zenbook','Asus',4,4, 2);
+
+-- Salas
+INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Baron',1);
+INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala B',1);
+INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala A',1);
+INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala B',1);

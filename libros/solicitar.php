@@ -9,11 +9,11 @@ if (!isset($_SESSION['rol'])) // Solo se puede solicitar si tiene sesion iniciad
 $msg = "";
 
 // Verificar si se hizo un POST para solicitar un equipo
-if (isset($_POST['isbn'], $_POST['titulo'], $_POST['fechaPrestamo']))
+if (isset($_POST['isbn'], $_POST['fechaPrestamo']))
 {
-  include_once dirname(__FILE__) . "/libros_crud.php";
+  include_once dirname(__FILE__) . "/../solicitudes/solicitudes_crud.php";
   // Llamar la funcion que registra la solicitud, esta funcion esta en equipos_crud.php
-  if (solicitar_equipo($_SESSION['usuario'], $_POST['isbn'], $_POST['titulo'], $_POST['fechaPrestamo']))
+  if (solicitar_libro($_SESSION['usuario'], $_POST['isbn'], $_POST['fechaPrestamo']))
   {
     $msg = "<span style='color: green;'>Solicitud enviada con exito</span>";
   }
