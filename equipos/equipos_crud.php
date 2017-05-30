@@ -15,7 +15,7 @@ if (mysqli_connect_errno())
 function get_equipos()
 {
   global $con;
-  $sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos";
+  $sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE total > 0";
   
   $result = mysqli_query($con, $sql);
 
@@ -28,7 +28,7 @@ function get_equipos()
 function get_equipo_disponible($fabricante, $nombre)
 {
   global $con;
-  $sql = "SELECT serie FROM equipos WHERE disponibles > 0 AND fabricante = '$fabricante' AND nombre = '$nombre'";
+  $sql = "SELECT serie FROM equipos WHERE disponibles > 0 AND fabricante = '$fabricante' AND nombre = '$nombre' AND total > 0";
   
   $result = mysqli_query($con, $sql);
 
@@ -79,6 +79,43 @@ function crear_equipo($fabricante, $nombre, $serie, $disponibles, $fileName)
   }
 
   return true;
+}
+
+function actualizar_equipo($fabricante, $nombre, $serie, $disponibles, $total, $fileName)
+{
+  global $con;
+  $sql = "UPDATE `equipos` SET `serie`=$serie,`fabricante`='$fabricante',`disponibles`=$disponibles, `total`=$total,`url_imagen`='$fileName' WHERE `nombre`='$nombre'";
+  
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+
+function buscar_equipo($nombre)
+{
+  global $con;
+  $sql = "SELECT * FROM equipos WHERE nombre='$nombre' AND total > 0";
+  
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result);
+  return $row;
+}
+
+function eliminar_equipo($nombre)
+{
+  global $con;
+  $sql = "UPDATE equipos SET total=-1 WHERE nombre='$nombre' LIMIT 1";
+
+  return mysqli_query($con, $sql);
 }
 
 ?>
