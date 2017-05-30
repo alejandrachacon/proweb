@@ -126,7 +126,7 @@ body {margin:0;}
       </p>
 	    <p>      
 	    <label class="w3-text-green"><b>Contraseña</b></label>
-	    <input class="w3-input w3-border w3-sand" name="password" type="text" required></p>
+	    <input class="w3-input w3-border w3-sand" name="password" type="password" required></p>
 	    <p>
 	    <button class="w3-btn w3-green" type="submit">Registrarse</button>
 	    </p>
