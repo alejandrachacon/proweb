@@ -35,4 +35,32 @@ function crear_libro($titulo, $autor, $edicion, $editorial, $paginas, $isbn, $co
   return true;
 }
 
+function actualizar_libro($titulo, $autor, $editorial, $paginas, $isbn, $disponibles, $copias, $imagen)
+{
+  global $con;
+  $sql = "UPDATE `libros` SET `titulo`='$titulo',`autor`='$autor',`editorial`='$editorial',`paginas`=$paginas,`disponibles`=$disponibles,`total`=$copias,`url_imagen`='$imagen' WHERE `isbn`='$isbn'";
+
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+function buscar_libro($isbn)
+{
+  global $con;
+  $sql = "SELECT * FROM libros WHERE isbn='$isbn'";
+  
+  $result = mysqli_query($con, $sql);
+  if (!$result)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result);
+  return $row;
+}
+
 ?>

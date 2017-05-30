@@ -67,7 +67,7 @@ if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numer
   }
 }
 // Verificar si estamos actualizando un libro
-else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['copias']))
+else if (isset($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['disponible'], $_POST['copias']))
 {
   // Verificar que no haya error subiendo la imagen
   if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] > 0)
@@ -105,7 +105,7 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
       $msg = "<span style='color: red'>Sólo se aceptan imágenes jpeg o png.</span>";
     }
   }
-  if (crear_libro($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['copias'], $fileName))
+  if (actualizar_libro($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['paginas'], $_POST['isbn'], $_POST['disponible'], $_POST['copias'], $fileName))
   {
     $msg = "<span style='color: green'>Libro actualizado</span>";
   }
@@ -156,25 +156,29 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['edicion'], $_POST['edi
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    $html .= "<form class='w3-container' action='actualizar.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
-    $html .= "<label>Autor</label>";
-    $html .= "<input class='w3-input' type='text' name='autor' required/>";
-    $html .= "<label>Titulo</label>";
-    $html .= "<input class='w3-input' type='text' name='titulo' required/>";
-    $html .= "<label>ISBN</label>";
-    $html .= "<input class='w3-input' type='text' name='isbn' required readonly/><br>";
-    $html .= "<label>Editorial</label>";
-    $html .= "<input class='w3-input' type='text' name='editorial' required/>";
-    $html .= "<label>Edicion</label>";
-    $html .= "<input class='w3-input' type='number' name='edicion' required/><br>";
-    $html .= "<label># de páginas</label>";
-    $html .= "<input class='w3-input' type='number' name='paginas' required/><br>";
-    $html .= "<label># de copias</label>";
-    $html .= "<input class='w3-input' type='number' name='copias' required/><br>";
-    $html .= "<label>Imagen</label>";
-    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
-    $html .= "<input type='submit' value='Actualizar' />";
-    $html .= "</form>";
+    $libro = buscar_libro($_GET['isbn']);
+    if ($libro)
+    {
+      $html .= "<form class='w3-container' action='actualizar.php?tipo=libro&isbn=" . $libro['isbn'] . "' method='post' style='width: 50%' enctype='multipart/form-data'>";
+      $html .= "<label>Autor</label>";
+      $html .= "<input class='w3-input' type='text' name='autor' value='" . $libro['autor'] . "' required/>";
+      $html .= "<label>Titulo</label>";
+      $html .= "<input class='w3-input' type='text' name='titulo' value='" . $libro['titulo'] . "' required/>";
+      $html .= "<label>ISBN</label>";
+      $html .= "<input class='w3-input' type='text' name='isbn' value='" . $libro['isbn'] . "' required readonly/><br>";
+      $html .= "<label>Editorial</label>";
+      $html .= "<input class='w3-input' type='text' name='editorial' value='" . $libro['editorial'] . "' required/>";
+      $html .= "<label># de páginas</label>";
+      $html .= "<input class='w3-input' type='number' name='paginas' value='" . $libro['paginas'] . "' required/><br>";
+      $html .= "<label># de copias disponibles</label>";
+      $html .= "<input class='w3-input' type='number' name='disponible' value='" . $libro['disponibles'] . "' required/><br>";
+      $html .= "<label># total de copias</label>";
+      $html .= "<input class='w3-input' type='number' name='copias' value='" . $libro['total'] . "' required/><br>";
+      $html .= "<label>Imagen</label>";
+      $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+      $html .= "<input type='submit' value='Actualizar' />";
+      $html .= "</form>";
+    }
   }
   // Formulario de equipos
   else
