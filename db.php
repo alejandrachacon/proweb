@@ -25,4 +25,13 @@ function login($user, $password)
   mysqli_close($con);
 }
 
+function register($user,$password,$email)
+{
+  global $con;
+    $sql = "INSERT INTO usuarios (usuario,email,password,rol) VALUES ('$user','$email','$password','usuario')";
+    $result = mysqli_query($con,$sql);
+    $row = login($user,$password);
+    return $row;
+}
+
 ?>
