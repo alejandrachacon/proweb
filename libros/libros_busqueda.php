@@ -21,7 +21,11 @@ function search($search_term)
 		global $con;
 
 		  
+<<<<<<< HEAD
+			 $sql = "SELECT isbn,titulo, autor,editorial, paginas, disponibles,total, url_imagen FROM libros WHERE (isbn LIKE '%".$search_term."%' OR titulo LIKE '%".$search_term."%' OR disponibles LIKE '%".$search_term."%' OR editorial LIKE '%".$search_term."%'  ) ";
+=======
 			 $sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE titulo LIKE '%".$search_term."%' ";
+>>>>>>> 39788c49229d40331f0ccab92f7b036973823ac0
 			 $results = mysqli_query($con,$sql);
 			 
 		return $results;

@@ -15,7 +15,7 @@ if (mysqli_connect_errno())
 function get_libros()
 {
   global $con;
-  $sql = "SELECT * FROM libros";
+  $sql = "SELECT isbn,titulo,autor,editorial,paginas,disponibles,total, url_imagen FROM libros";
   
   $result = mysqli_query($con, $sql);
 

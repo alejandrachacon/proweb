@@ -58,6 +58,7 @@ session_start();
     include_once dirname(__FILE__) . "/libros/libros_crud.php";
     include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
     include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
+    include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
    
 
     $libros = null;
@@ -121,7 +122,7 @@ session_start();
         }
         if (isset($_SESSION['rol'])) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
         {
-          $html .= "<td>" . "<a href='solicitar.php?tipo=libro&autor=" . $row['autor'] . "&titulo=" . $row['titulo'] . "&isbn=" . $row['isbn'] . "'>Solicitar</a>" . "</td>";
+          $html .= "<td>" . "<a href='libros/solicitar.php?isbn=" . $row['isbn'] . "&titulo=" . $row['titulo'] . "'>Solicitar</a>" . "</td>";
         }
         
         if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
