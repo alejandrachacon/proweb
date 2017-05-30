@@ -1,20 +1,31 @@
 <?php
 session_start();
-// Verificar que solo pueda entrar el admin
-if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 'admin'))
-{
-  header('Location: index.php');
-  exit();
-}
 
-$msg = "";
+  include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
+  include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
+  if ($_SERVER['REQUEST_METHOD']=='POST'){
 
-  /*  if(isset($)){
+    if (isset($_GET['tipo']) && $_GET['tipo']=='libro'{
+
+      
+
 
     }
-    elseif (condition) {
-      # code...
-    }*/
+    else{
+
+      if(isset($_POST['titulo'])){
+
+
+      }
+
+    }
+
+
+
+
+  }
+
+
 
 
 ?>
@@ -71,7 +82,7 @@ $msg = "";
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    $html .= "<form class='w3-container' action='busquedaAvanzada.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='busquedaAvanzada.php?tipo=libro' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Autor</label>";
     $html .= "<input class='w3-input' type='text' name='autor' />";
     $html .= "<label>Titulo</label>";
@@ -94,7 +105,7 @@ $msg = "";
   // Formulario de equipos
   else
   {
-    $html .= "<form class='w3-container' action='busquedaAvanzada.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='busquedaAvanzada.php?tipo=equipo' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Fabricante</label>";
     $html .= "<input class='w3-input' type='text' name='fabricante' />";
     $html .= "<label>Nombre</label>";

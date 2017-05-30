@@ -64,7 +64,7 @@ session_start();
     $libros = null;
     $html = "";
     if(isset($_GET['search_term']) && isset($_GET['search']))
-    {
+    { 
 
         $libros = search($_GET['search_term']);
 
@@ -72,7 +72,7 @@ session_start();
         if(!$libros){
 
               $html .= "<br> <h1> No se encontraron coincidencias</h1> ";
-              $equipos = get_libros();
+              $libros = get_libros();
 
         }
 
