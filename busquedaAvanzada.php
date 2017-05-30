@@ -3,24 +3,6 @@ session_start();
 
   include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
   include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
-  if ($_SERVER['REQUEST_METHOD']=='POST'){
-
-    if (isset($_GET['tipo']) && $_GET['tipo']=='libro'{
-
-      
-
-
-    }
-    else{
-
-      if(isset($_POST['titulo'])){
-
-
-      }
-
-    }
-
-
 
 
   }
@@ -82,40 +64,24 @@ session_start();
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    $html .= "<form class='w3-container' action='busquedaAvanzada.php?tipo=libro' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='libros.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Autor</label>";
     $html .= "<input class='w3-input' type='text' name='autor' />";
     $html .= "<label>Titulo</label>";
     $html .= "<input class='w3-input' type='text' name='titulo' />";
-    $html .= "<label>ISBN</label>";
-    $html .= "<input class='w3-input' type='text' name='isbn' /><br>";
     $html .= "<label>Editorial</label>";
     $html .= "<input class='w3-input' type='text' name='editorial' />";
-    $html .= "<label>Edicion</label>";
-    $html .= "<input class='w3-input' type='number' name='edicion' /><br>";
-    $html .= "<label># de páginas</label>";
-    $html .= "<input class='w3-input' type='number' name='paginas' /><br>";
-    $html .= "<label># de copias</label>";
-    $html .= "<input class='w3-input' type='number' name='copias' /><br>";
- //   $html .= "<label>Imagen</label>";
-//    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
     $html .= "<input type='submit' value='Buscar' />";
     $html .= "</form>";
   }
   // Formulario de equipos
   else
   {
-    $html .= "<form class='w3-container' action='busquedaAvanzada.php?tipo=equipo' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' action='equipos.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Fabricante</label>";
     $html .= "<input class='w3-input' type='text' name='fabricante' />";
     $html .= "<label>Nombre</label>";
     $html .= "<input class='w3-input' type='text' name='nombre' />";
-    $html .= "<label># de serie</label>";
-    $html .= "<input class='w3-input' type='number' name='serie' />";
-    $html .= "<label># de equipos</label>";
-    $html .= "<input class='w3-input' type='number' name='numeroEquipos' /><br>";
- //   $html .= "<label>Imagen</label>";
-//    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
     $html .= "<input type='submit' value='Buscar' />";
     $html .= "</form>";
   }

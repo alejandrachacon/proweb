@@ -13,7 +13,7 @@ if (mysqli_connect_errno())
 
 
 
-function search($search_term)
+function searche($search_term)
 {
 	//variable usada para especificar cuántos resultados mostrar por página.
 	$RESULTS_LIMIT=10;
@@ -28,6 +28,19 @@ function search($search_term)
 			 $results = mysqli_query($con,$sql);
 			 
 		return $results;
+
+}
+
+function fullsearche($nombre,$fabricante,$disponibles){
+
+	global $con ;
+
+	$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%$nombre%') AND (fabricante LIKE '%$fabricante%') AND (disponibles LIKE '%$disponibles%')";
+
+	$results = mysqli_query($con,$sql);
+
+	return $results;
+
 
 }
 
