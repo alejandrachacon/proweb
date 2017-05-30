@@ -126,8 +126,8 @@ session_start();
         
         if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
         {
-          $html .= "<td>" . '<a href="actualizar.php">Actualizar</a>' . "</td>";
-          $html .= "<td>" . '<a href="eliminar.php">Eliminar</a>' . "</td>";
+          $html .= "<td>" . '<a href="actualizar.php?tipo=libro&isbn=' . $row['isbn'] . '">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="eliminar.php?tipo=libro&isbn=' . $row['isbn'] . '">Eliminar</a>' . "</td>";
         }
         $html .= "</tr>";
       }
