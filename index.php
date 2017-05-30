@@ -77,8 +77,8 @@ if (isset($_POST['username']))
 <div style="padding-left:16px">
 	<br>
 	<br>
-   	<div class="w3-card-4">
-	  <div class="w3-container w3-green">
+   	<div class="w3-card-4" style="width: 30%">
+	  <div class="w3-container w3-green" >
 	    <h2>Ingrese a la plataforma</h2>
 	  </div>
 	  <form method="post" class="w3-container" action="index.php">

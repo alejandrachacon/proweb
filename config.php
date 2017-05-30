@@ -9,7 +9,7 @@ define('NOMBRE_DB', 'trycrying');*/
 define ('USUARIO_DB', 'root');
 define('USUARIO_PASS','');
 define('HOST_DB', '127.0.0.1');
-define('NOMBRE_DB', 'mydb');
+define('NOMBRE_DB', 'trycrying');
 
 //Local Ale
 /*define ('USUARIO_DB', 'alejandrachacon');
