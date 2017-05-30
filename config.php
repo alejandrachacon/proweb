@@ -1,7 +1,7 @@
 <?php
 // Para Orion
 /*define('USUARIO_DB', 'trycrying');
-define('USUARIO_PASS','');
+define('USUARIO_PASS','9wbtf4JwiA');
 define('HOST_DB', '10.34.1.37');
 define('NOMBRE_DB', 'trycrying');*/
 
