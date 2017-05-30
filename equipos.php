@@ -1,5 +1,37 @@
 <?php
 session_start();
+
+
+
+
+  if ($_SERVER['REQUEST_METHOD']=='POST'){
+
+  
+
+      $nombre=$fabricante="";
+
+       if(isset($_POST['nombre'])){
+
+          $nombre = $_POST['nombre'];
+
+          if(isset($_POST['fabricante'])){
+
+            $fabricante = $_POST['fabricante'];
+
+            if (isset($_POST['disponibles'])){
+
+              $disponibles = $_POST['disponibles']; 
+                
+            }
+
+          }
+
+        }
+
+  }
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,7 +96,8 @@ session_start();
     if(isset($_GET['search_term']) && isset($_GET['search']))
     {
 
-        $equipos = search($_GET['search_term']);
+        //equipos que coincidan con el parametro a buscar
+        $equipos = searche($_GET['search_term']);
 
 
         if(!$equipos){

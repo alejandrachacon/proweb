@@ -1,5 +1,38 @@
 <?php
 session_start();
+
+if ($_SERVER['REQUEST_METHOD']=='POST'){
+
+  if (isset($_GET['tipo']) && $_GET['tipo']=='libro'){
+     
+
+      $titulo = $editorial = $autor = "";
+
+
+        if(isset($_POST['titulo'])){ 
+
+           $titulo = $_POST['titulo'];
+
+              if(isset($_POST['editorial'])){
+
+                   $editorial = $_POST['editorial'];
+
+                    if(isset($_POST['autor'])){
+
+                       $autor= $_POST['autor'];
+
+
+                    }
+              }
+        }
+              fullsearchl($titulo,$autor,$editorial,$disponibles);
+  }
+}
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,7 +99,7 @@ session_start();
     if(isset($_GET['search_term']) && isset($_GET['search']))
     { 
 
-        $libros = search($_GET['search_term']);
+        $libros = searchl($_GET['search_term']);
 
 
         if(!$libros){
