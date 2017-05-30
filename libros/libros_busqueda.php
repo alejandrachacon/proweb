@@ -21,10 +21,7 @@ function search($search_term)
 		global $con;
 
 		  
-			 //$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (fabricante LIKE '%".$search_term."%' OR nombre LIKE '%".$search_term."%' OR disponibles LIKE '%".$search_term."%'  ) ";
-
-			 // La busqueda basica solo busca por nombre
-			 $sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE nombre LIKE '%" . $search_term . "%'";
+			 $sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE titulo LIKE '%".$search_term."%' ";
 			 $results = mysqli_query($con,$sql);
 			 
 		return $results;
