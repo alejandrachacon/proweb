@@ -9,9 +9,12 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
 
 $msg = "";
 
-include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
-//include_once dirname(__FILE__) . "/libros/libros_busqueda.php";
+  /*  if(isset($)){
 
+    }
+    elseif (condition) {
+      # code...
+    }*/
 
 
 ?>
@@ -83,8 +86,8 @@ include_once dirname(__FILE__) . "/equipos/equipos_busqueda.php";
     $html .= "<input class='w3-input' type='number' name='paginas' /><br>";
     $html .= "<label># de copias</label>";
     $html .= "<input class='w3-input' type='number' name='copias' /><br>";
-    $html .= "<label>Imagen</label>";
-    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+ //   $html .= "<label>Imagen</label>";
+//    $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
     $html .= "<input type='submit' value='Buscar' />";
     $html .= "</form>";
   }

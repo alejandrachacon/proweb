@@ -6,8 +6,7 @@ define('HOST_DB', '10.34.1.37');
 define('NOMBRE_DB', 'trycrying');*/
 
 // Local jeff
-/*define('USUARIO_DB', 'root');
-define('USUARIO_PASS','');
+/*define('USUARIO_PASS','');
 define('HOST_DB', '127.0.0.1');
 define('NOMBRE_DB', 'mydb');*/
 

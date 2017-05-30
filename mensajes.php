@@ -49,7 +49,8 @@ if (isset($_POST['solicitud'], $_POST['decision'], $_POST['usuario'], $_POST['ti
       }
       else
       {
-        if (aprobar_libro($_POST['solicitud'], $_POST['usuario'], $_POST['tipo'], $_POST['fechaVencimiento'], $reporteCada))
+        //function aprobar_libro($idSolicitud, $usuario, $tipo, $fechaVencimiento, $isbn, $reporteCada)
+        if (aprobar_libro($_POST['solicitud'], $_POST['usuario'], $_POST['tipo'], $_POST['fechaVencimiento'], $_POST['isbn'], $reporteCada))
         {
           $msg = "<span style='color: green'>Solicitud aprobada</span>";
         }
@@ -147,8 +148,8 @@ if (isset($_POST['solicitud'], $_POST['decision'], $_POST['usuario'], $_POST['ti
       }
       else if ($row['tipo'] == 'libro')
       {
-        $html .= "<label>ID Libro:</label>";
-        $html .= "<input class='w3-input' type='text' name='libro_id' value='" . $row['libros_id'] . "' readonly/>";
+        $html .= "<label>ISBN:</label>";
+        $html .= "<input class='w3-input' type='text' name='isbn' value='" . $row['libros_isbn'] . "' readonly/>";
       }
       else if ($row['tipo'] == 'sala')
       {

@@ -56,11 +56,6 @@ function get_libro_mascercano_vencer($nombre)
   return $row;
 }
 
-
-
-
-
-
 // Retorna una solicitud dado su id, si no encuentra la solicitud retorna false
 function get_solicitud_id($idSolicitud)
 {
@@ -110,7 +105,7 @@ function aprobar_libro($idSolicitud, $usuario, $tipo, $fechaVencimiento, $isbn, 
     return false;
   }
 
-  $updateSolicitud = "UPDATE `solicitudes` SET `estado`='prestado', `fecha_vencimiento`='$fechaVencimiento' WHERE id=$idSolicitud AND `libros_isbn`='". $isbn . "' LIMIT 1";
+  $updateSolicitud = "UPDATE `solicitudes` SET `estado`='prestado', `fecha_vencimiento`='$fechaVencimiento' WHERE id=$idSolicitud LIMIT 1";
   if (!mysqli_query($con, $updateSolicitud))
   {
     return false;
@@ -192,6 +187,46 @@ function buscar_solicitud($usuario, $tipo, $item)
 
   $row = mysqli_fetch_array($result);
   return $row;
+}
+
+function get_libro_disponible($isbn)
+{
+  global $con;
+  $sql = "SELECT isbn FROM libros WHERE disponibles > 0 AND isbn='$isbn'";
+  
+  $result = mysqli_query($con, $sql);
+
+  // Sino encuentra nada retornar false
+  if (mysqli_num_rows($result) <= 0)
+  {
+    return false;
+  }
+
+  $row = mysqli_fetch_array($result); // Coger el primer resultado
+
+  return $row;
+}
+
+function solicitar_libro($usuario, $isbn, $fechaPrestamo)
+{
+  global $con;
+  $disponible = get_libro_disponible($isbn);
+
+  // Si no encontró ningun libro disponible, retornar
+  if (!$disponible)
+  {
+    return false;
+  }
+
+  $fechaPrestamo .= ":00";
+  $sql = "INSERT INTO `solicitudes`(`usuario`, `libros_isbn`, `tipo`, `fecha_prestamo`,`estado`) VALUES ('$usuario', '$isbn', 'libro', '$fechaPrestamo', 'solicitado')";
+  
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
 }
 
 ?>
