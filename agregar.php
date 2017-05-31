@@ -132,9 +132,10 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       {
 
        
-       /* solicitar_sala($_SESSION['usuario'],$_POST['sala'],$_POST['fechainicio']);
+       solicitar_sala($_SESSION['usuario'],$_POST['sala'],$_POST['fechainicio']);
         $sol = buscar_solicitud($_SESSION['usuario'],'sala',$_POST['sala']);
-        aprobar_sala($sol['id']);*/
+        //$idSolicitud, $usuario, $tipo, $fechaVencimiento, $nombre
+        aprobar_sala($sol['id'],$_SESSION['usuario'],'sala',$_POST['fechafin'],$_POST['sala']);
 
         if (crear_evento($_POST['fechainicio'],$_POST['fechafin'],'biblioteca',$_POST['sala'],$_POST['nombre'],$_POST['informacion']))
       {
