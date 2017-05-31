@@ -44,6 +44,7 @@ date_default_timezone_set('America/Bogota');
   <tr>
     <th>Nombre</th>
     <th>Lugar</th>
+    <th>Sala</th>
     <th>Fecha de Inicio</th>
     <th>Fecha de Fin</th>
   </tr>
@@ -64,6 +65,13 @@ date_default_timezone_set('America/Bogota');
         $html .= "<tr>";
         $html .= "<td>" . $row['nombre'] . "</td>";
         $html .= "<td>" . $row['lugar'] . "</td>";
+        if(isset($row['sala'] )){
+          
+        $html .= "<td>" . $row['sala'] . "</td>";
+        }
+        else{
+           $html .= "<td> </td>";
+        }
         $html .= "<td>" . $row['fechainicio'] . "</td>";
         $html .= "<td>" . $row['fechafin'] . "</td>";
      //   $html .= "<td>" .strftime("%Y %m %d, %X %Z",mktime()). "</td>";

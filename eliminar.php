@@ -7,7 +7,7 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
   exit();
 }
 
-if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro' && $_GET['tipo'] != 'sala'))
+if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro' && $_GET['tipo'] != 'sala' && $_GET['tipo'] != 'evento'))
 {
   header('Location: index.php');
   exit();

@@ -27,8 +27,24 @@ function crear_evento( $fechainicio, $fechafin, $lugar, $sala_nombre,$nombre,$in
   global $con;
   $fechainicio .= ":00";
   $fechafin .= ":00";
-  
+
   $sql = "INSERT INTO `eventos`(`fechainicio`, `fechafin`, `lugar`, `sala_nombre`, `nombre`, `informacion`) VALUES ( '$fechainicio', '$fechafin', '$lugar', '$sala_nombre', '$nombre', '$informacion')";
+  
+  if (!mysqli_query($con, $sql))
+  {
+    return mysqli_query($con, $sql) ;
+  }
+
+  return true;
+}
+
+function crear_evento2( $fechainicio, $fechafin, $lugar,$nombre,$informacion)
+{
+  global $con;
+  $fechainicio .= ":00";
+  $fechafin .= ":00";
+  
+  $sql = "INSERT INTO `eventos`(`fechainicio`, `fechafin`, `lugar`, `nombre`, `informacion`) VALUES ( '$fechainicio', '$fechafin', '$lugar', '$nombre', '$informacion')";
   
   if (!mysqli_query($con, $sql))
   {

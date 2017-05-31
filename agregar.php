@@ -144,7 +144,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
   else{
   
     //$inf = crear_evento($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],'',$_POST['nombre'],$_POST['informacion']);
-        if (crear_evento($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],null,$_POST['nombre'],$_POST['informacion']))
+        if (crear_evento2($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],$_POST['nombre'],$_POST['informacion']))
       {
         $msg = "<span style='color: green'>Evento agregado</span>";
       }
