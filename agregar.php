@@ -129,9 +129,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
    if($_SERVER['REQUEST_METHOD']=='POST'){
 
       if(isset($_POST['sala']))
-      {
-
-       
+      {       
        solicitar_sala($_SESSION['usuario'],$_POST['sala'],$_POST['fechainicio']);
         $sol = buscar_solicitud($_SESSION['usuario'],'sala',$_POST['sala']);
         //$idSolicitud, $usuario, $tipo, $fechaVencimiento, $nombre
@@ -147,8 +145,9 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       }
   }
   else{
-  
-    //$inf = crear_evento($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],'',$_POST['nombre'],$_POST['informacion']);
+    if(isset($_POST['lugar2'])){
+
+     //$inf = crear_evento($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],'',$_POST['nombre'],$_POST['informacion']);
         if (crear_evento2($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],$_POST['nombre'],$_POST['informacion']))
       {
         $msg = "<span style='color: green'>Evento agregado</span>";
@@ -157,6 +156,10 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       {
         $msg = "<span style='color: red'>Error al agregar evento</span>";
       }
+       
+    }
+  
+    
 
   }
 
