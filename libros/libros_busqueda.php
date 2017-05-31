@@ -30,7 +30,15 @@ function fullsearchl($titulo,$autor,$editorial,$disponibles){
 
 	global $con;
 
-	$sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE (titulo LIKE '%".$titulo."%') AND (autor LIKE '%".$autor."%') AND (editorial LIKE '%".$editorial."%') AND (disponibles LIKE '%".$disponibles."%')";
+	if($disponibles == 'si'){
+
+		$sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE (titulo LIKE '%".$titulo."%') AND (autor LIKE '%".$autor."%') AND (editorial LIKE '%".$editorial."%') AND (disponibles > 0 )";
+	}
+	else{
+
+		$sql = "SELECT isbn, autor, titulo, editorial, disponibles, total, url_imagen FROM libros WHERE (titulo LIKE '%".$titulo."%') AND (autor LIKE '%".$autor."%') AND (editorial LIKE '%".$editorial."%') AND (disponibles = 0)";
+	}
+
 
 	$results = mysqli_query($con,$sql);
 

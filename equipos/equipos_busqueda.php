@@ -35,7 +35,17 @@ function fullsearche($nombre,$fabricante,$disponibles){
 
 	global $con;
 
-	$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%".$nombre."%') AND (fabricante LIKE '%".$fabricante."%') AND (disponibles LIKE '%".$disponibles."%')";
+	if($disponibles == 'si')
+	{
+
+		$sql = "SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%".$nombre."%') AND (fabricante LIKE '%".$fabricante."%') AND (disponibles > 0)";
+	}
+	else{
+
+		$sql ="SELECT nombre, fabricante, disponibles, total, url_imagen FROM equipos WHERE (nombre LIKE '%".$nombre."%') AND (fabricante LIKE '%".$fabricante."%') AND (disponibles = 0)";
+
+	}
+
 
 	$results = mysqli_query($con,$sql);
 

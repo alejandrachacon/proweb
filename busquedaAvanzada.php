@@ -59,24 +59,36 @@ session_start();
   // Formulario de libros
   if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro')
   {
-    $html .= "<form class='w3-container' action='libros.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' id = 'formulario' action='libros.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Autor</label>";
-    $html .= "<input class='w3-input' type='text' name='autor' />";
+    $html .= "<input class='w3-input' type='text' name='autor' /><br>";
     $html .= "<label>Titulo</label>";
-    $html .= "<input class='w3-input' type='text' name='titulo' />";
+    $html .= "<input class='w3-input' type='text' name='titulo' /><br>";
+    $html .= "<label>Disponibilidad</label>";
+    $html .= '<br> <select name="disponibles" form="formulario">';
+    $html .= '<option value="si">Si</option>';
+    $html .= '<option value="no">No</option>';
+    $html .= ' </select> ';
+    $html .= ' <br>';
     $html .= "<label>Editorial</label>";
-    $html .= "<input class='w3-input' type='text' name='editorial' />";
+    $html .= "<input class='w3-input' type='text' name='editorial' /> <br><br>";
     $html .= "<input type='submit' value='Buscar' />";
     $html .= "</form>";
   }
   // Formulario de equipos
   else
   {
-    $html .= "<form class='w3-container' action='equipos.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<form class='w3-container' id = 'formulario' action='equipos.php' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Fabricante</label>";
-    $html .= "<input class='w3-input' type='text' name='fabricante' />";
+    $html .= "<input class='w3-input' type='text' name='fabricante' /><br>";
+    $html .= "<label>Disponibilidad</label><br>";
+    $html .= '<br> <select name="disponibles" form="formulario"><br><br>';
+    $html .= '<option value="si">Si</option>';
+    $html .= '<option value="no">No</option>';
+    $html .= ' </select> <br> ';
+    $html .= ' <br>';
     $html .= "<label>Nombre</label>";
-    $html .= "<input class='w3-input' type='text' name='nombre' />";
+    $html .= "<input class='w3-input' type='text' name='nombre' /> <br><br>";
     $html .= "<input type='submit' value='Buscar' />";
     $html .= "</form>";
   }
