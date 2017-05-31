@@ -64,12 +64,17 @@ function buscar_evento($id)
   return $row;
 }
 
-/*function eliminar_evento($isbn)
+function eliminar_evento($id)
 {
   global $con;
-  $sql = "UPDATE eventos SET total=-1 WHERE isbn='$isbn' LIMIT 1";
+  $sql = "DELETE FROM eventos WHERE id = '$id'";
 
-  return mysqli_query($con, $sql);
+  if (!mysqli_query($con, $sql))
+  {
+    return false;
+  }
+
+  return true;
 }
-*/
+
 ?>

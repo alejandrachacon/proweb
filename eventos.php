@@ -66,7 +66,7 @@ date_default_timezone_set('America/Bogota');
         $html .= "<td>" . $row['lugar'] . "</td>";
         $html .= "<td>" . $row['fechainicio'] . "</td>";
         $html .= "<td>" . $row['fechafin'] . "</td>";
-        $html .= "<td>" .strftime("%Y %m %d, %X %Z",mktime()). "</td>";
+     //   $html .= "<td>" .strftime("%Y %m %d, %X %Z",mktime()). "</td>";
       //date_diff(datetime1,datetime2,absolute);
         //&& date_diff(mktime(),strtotime($row['fechainicio']),'absolute')
 
@@ -79,11 +79,7 @@ date_default_timezone_set('America/Bogota');
           $html .= "<td></td>";
         }
         
-        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
-        {
-          $html .= "<td>" . '<a href="actualizar.php?tipo=evento&nombre=' . $row['nombre'] . '">Actualizar</a>' . "</td>";
-          $html .= "<td>" . '<a href="eliminar.php?tipo=evento&nombre=' . $row['nombre'] . '">Eliminar</a>' . "</td>";
-        }
+
         $html .= "</tr>";
       }
     }

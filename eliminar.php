@@ -18,6 +18,7 @@ $msg = "";
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
 include_once dirname(__FILE__) . "/libros/libros_crud.php";
 include_once dirname(__FILE__) . "/salas/salas_crud.php";
+include_once dirname(__FILE__) . "/eventos/eventos_crud.php";
 
 // Verificar si estamos eliminando un equipo
 if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'equipo')
@@ -53,6 +54,18 @@ else if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['ti
   else
   {
     $msg = "<span style='color: red'>Error al eliminar sala</span>";
+  }
+}
+// Verificar si estamos eliminando un evento
+else if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
+{
+  if (eliminar_evento($_GET['id']))
+  {
+    $msg = "<span style='color: green'>Evento eliminado</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al eliminar evento</span>";
   }
 }
 ?>
@@ -91,7 +104,7 @@ else if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['ti
 
 <?php echo $msg; ?>
 <br>
-<h3>Eliminar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else echo "Equipo"; ?></h3>
+<h3>Eliminar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo') echo "Equipo"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento') echo "Evento"; else echo "Sala" ?></h3>
 <?php
   $html = "";
   // Formulario de libros
@@ -151,6 +164,20 @@ else if (isset($_POST['eliminar'], $_POST['nombre'], $_GET['tipo']) && $_GET['ti
       $html .= "<form class='w3-container' action='eliminar.php?tipo=sala&nombre=" . $sala['nombre'] . "' method='post' style='width: 50%'>";
       $html .= "<label>Nombre</label>";
       $html .= "<input class='w3-input' type='text' name='nombre' value='" . $sala['nombre'] . "' required readonly/><br>";
+      $html .= "<input type='submit' name='eliminar' value='Eliminar' />";
+      $html .= "</form>";
+    }
+  }
+    // Formulario de eventos
+  else if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento')
+  {
+    $evento = buscar_evento($_GET['id']);
+    
+    if ($evento)
+    {
+      $html .= "<form class='w3-container' action='eliminar.php?tipo=evento&id=" . $evento['id'] . "' method='post' style='width: 50%'>";
+      $html .= "<label>Nombre</label>";
+      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $evento['nombre'] . "' required readonly/><br>";
       $html .= "<input type='submit' name='eliminar' value='Eliminar' />";
       $html .= "</form>";
     }

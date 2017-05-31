@@ -154,6 +154,8 @@ CREATE TABLE IF NOT EXISTS `trycrying`.`eventos` (
   `fechafin` DATETIME NOT NULL,
   `lugar` VARCHAR(45) NULL,
   `sala_nombre` VARCHAR(45) NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `informacion` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_eventos_sala1_idx` (`sala_nombre` ASC),
   CONSTRAINT `fk_eventos_sala1`
@@ -162,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `trycrying`.`eventos` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -205,3 +208,8 @@ INSERT INTO `equipos`(`nombre`, `fabricante`, `disponibles`, `total`, `serie`) V
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Baron',1);
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala B',1);
 INSERT INTO `sala`(`nombre`, `disponible`) VALUES ('Sala A',1);
+
+-- Eventos
+INSERT INTO `eventos` (`fechainicio`, `fechafin`, `lugar`, `sala_nombre`, `nombre`, `informacion`) VALUES
+('2017-06-03 00:00:00', '2017-06-04 00:00:00', 'Teatro la castellana', NULL, 'GameJam Express', '24h de pura programacion'),
+('2017-05-29 00:00:00', '2017-05-30 00:00:00', 'Pablo VI', NULL, 'Eucaristia', 'día de la virgen maria');

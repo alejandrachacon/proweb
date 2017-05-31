@@ -2,6 +2,19 @@
 session_start();
 
     include_once dirname(__FILE__) . "/eventos/eventos_crud.php";
+    include_once dirname(__FILE__) . "/eventos/suscribir_crud.php";
+
+    if(isset($_GET['subscribe']) && $_GET['subscribe']=='true')
+    {
+       if(crear_suscripcion($_SESSION['usuario'],$_GET['id'])){
+
+          $msg = "<span style='color: green'>".$_SESSION['usuario']." ya estás inscrito en el evento! </span>";
+
+       }
+       else{
+          $msg = "";
+       }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,7 +65,7 @@ session_start();
   <?php
 
     $html = "";
-
+        echo $msg;
         $row = buscar_evento($_GET['id']); // buscar todos los eventos vigentes
       
 
@@ -61,13 +74,18 @@ session_start();
         $html .= "<td>" . $row['nombre'] . "</td>";
         $html .= "<td>" . $row['informacion'] . "</td>";
 
-        if (isset($_SESSION['rol']) ) // Solo mostrar el botón de suscribir cuando el usuario tiene sesion iniciada
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar el botón de suscribir cuando el usuario tiene sesion iniciada
         {
-          $html .= "<td>" . "<a href='/eventos/suscribir.php?id=" . $row['id']."'>Suscribir</a>" . "</td>";
+          $html .= "<td>" . "<a href='suscribir.php?id=" . $row['id']."&subscribe=true'>Suscribir</a>" . "</td>";
         }
         else
         {
-          $html .= "<td></td>";
+          $html .= "<td> Inicie sesión para suscribir </td>";
+        }
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
+        {
+          $html .= "<td>" . '<a href="actualizar.php?tipo=evento&id=' . $row['id'] . '">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="eliminar.php?tipo=evento&id=' . $row['id'] . '">Eliminar</a>' . "</td>";
         }
         
         $html .= "</tr>";

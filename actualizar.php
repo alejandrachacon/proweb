@@ -17,6 +17,7 @@ $msg = "";
 
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
 include_once dirname(__FILE__) . "/libros/libros_crud.php";
+include_once dirname(__FILE__) . "/eventos/eventos_crud.php";
 
 // Verificar si estamos actualizando un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']))
@@ -114,6 +115,18 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['p
     $msg = "<span style='color: red'>Error al actualizar libro</span>";
   }
 }
+// Verificar si estamos actualizando un evento
+else if (isset($_POST['nombre'], $_POST['fechainicio'], $_POST['fechafin'], $_POST['informacion'], $_POST['lugar'], $_POST['sala_nombre'], $_POST['id']))
+{
+  if (actualizar_evento($_POST['id'], $_POST['fechainicio'], $_POST['fechafin'], $_POST['lugar'], $_POST['sala_nombre'], $_POST['nombre'], $_POST['informacion']))
+  {
+    $msg = "<span style='color: green'>Evento actualizado</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al actualizar evento</span>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -150,7 +163,7 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['p
 
 <?php echo $msg; ?>
 <br>
-<h3>Actualizar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else echo "Equipo"; ?></h3>
+<h3>Actualizar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo') echo "Equipo"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento') echo "Evento"; else echo "Sala" ?></h3>
 <?php
   $html = "";
   // Formulario de libros
@@ -180,28 +193,51 @@ else if (isset($_POST['titulo'], $_POST['autor'], $_POST['editorial'], $_POST['p
       $html .= "</form>";
     }
   }
-  // Formulario de equipos
+  // Formulario de eventos
   else
   {
-    $equipo = buscar_equipo($_GET['nombre']);
-    
-    if ($equipo)
+      if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento')
+  {
+    $evento = buscar_evento($_GET['id']);
+    if ($evento)
     {
-      $html .= "<form class='w3-container' action='actualizar.php?tipo=equipo&nombre=" . $equipo['nombre'] . "' method='post' style='width: 50%' enctype='multipart/form-data'>";
-      $html .= "<label>Fabricante</label>";
-      $html .= "<input class='w3-input' type='text' name='fabricante' value='" . $equipo['fabricante'] . "' required/>";
+      $html .= "<form class='w3-container' action='actualizar.php?tipo=evento&id=" . $evento['id'] . "' method='post' style='width: 50%' enctype='multipart/form-data'>";
       $html .= "<label>Nombre</label>";
-      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $equipo['nombre'] . "' required readonly/>";
-      $html .= "<label># de serie</label>";
-      $html .= "<input class='w3-input' type='number' name='serie' value='" . $equipo['serie'] . "' required/>";
-      $html .= "<label># disponible de equipos</label>";
-      $html .= "<input class='w3-input' type='number' name='disponible' value='" . $equipo['disponibles'] . "' required/><br>";
-      $html .= "<label># total de equipos</label>";
-      $html .= "<input class='w3-input' type='number' name='numeroEquipos' value='" . $equipo['total'] . "' required/><br>";
-      $html .= "<label>Imagen</label>";
-      $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $libro['nombre'] . "' required/> <br>";
+      $html .= "<label>Descripción</label>";
+      $html .= "<input class='w3-input' type='text' name='Descripción' value='" . $libro['informacion'] . "' required/><br>";
+      $html .= "<label>Lugar</label>";
+      $html .= "<input class='w3-input' type='text' name='lugar' value='" . $libro['lugar'] . "' required/>";
+      $html .= "<label>Fecha de Inicio</label>";
+    /*  $html .= " dia <input class='w3-input' type='text' name='dia' value='" . $libro['fechainicio'] . "' required readonly/><br>";
+      $html .= "<label>Editorial</label>";
+      $html .= "<input class='w3-input' type='text' name='editorial' value='" . $libro['fechafin'] . "' required/>";*/
       $html .= "<input type='submit' value='Actualizar' />";
       $html .= "</form>";
+    }
+  }
+  else{
+
+    $equipo = buscar_equipo($_GET['nombre']);
+    
+      if ($equipo)
+      {
+        $html .= "<form class='w3-container' action='actualizar.php?tipo=equipo&nombre=" . $equipo['nombre'] . "' method='post' style='width: 50%' enctype='multipart/form-data'>";
+        $html .= "<label>Fabricante</label>";
+        $html .= "<input class='w3-input' type='text' name='fabricante' value='" . $equipo['fabricante'] . "' required/>";
+        $html .= "<label>Nombre</label>";
+        $html .= "<input class='w3-input' type='text' name='nombre' value='" . $equipo['nombre'] . "' required readonly/>";
+        $html .= "<label># de serie</label>";
+        $html .= "<input class='w3-input' type='number' name='serie' value='" . $equipo['serie'] . "' required/>";
+        $html .= "<label># disponible de equipos</label>";
+        $html .= "<input class='w3-input' type='number' name='disponible' value='" . $equipo['disponibles'] . "' required/><br>";
+        $html .= "<label># total de equipos</label>";
+        $html .= "<input class='w3-input' type='number' name='numeroEquipos' value='" . $equipo['total'] . "' required/><br>";
+        $html .= "<label>Imagen</label>";
+        $html .= "<input class='w3-input' type='file' name='imagen' id='imagen'/><br>";
+        $html .= "<input type='submit' value='Actualizar' />";
+        $html .= "</form>";
+      }
     }
   }
 
