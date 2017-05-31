@@ -12,6 +12,7 @@ $msg = "";
 include_once dirname(__FILE__) . "/equipos/equipos_crud.php";
 include_once dirname(__FILE__) . "/libros/libros_crud.php";
 include_once dirname(__FILE__) . "/salas/salas_crud.php";
+include_once dirname(__FILE__) . "/eventos/eventos_crud.php";
 
 // Verificar si estamos agregando un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']) && $_GET['tipo'] == 'equipo')
@@ -121,6 +122,19 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
     $msg = "<span style='color: red'>Error al agregar sala</span>";
   }
 }
+
+// Verificar si estamos agregando un evento
+else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
+{
+  if (crear_evento($_POST['nombre']))
+  {
+    $msg = "<span style='color: green'>Evento agregado</span>";
+  }
+  else
+  {
+    $msg = "<span style='color: red'>Error al agregar evento</span>";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,6 +177,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
     <option value="equipo">Equipo</option>
     <option value="libro">Libro</option>
     <option value="sala">Sala</option>
+    <option value="evento">Evento</option>
   </select>
   <br><br>
   <input type="submit" value="Cargar">
@@ -170,7 +185,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
 
 <?php echo $msg; ?>
 <br>
-<h3>Agregar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo') echo "Equipo"; else echo "Sala" ?></h3>
+<h3>Agregar <?php if (isset($_GET['tipo']) && $_GET['tipo'] == 'libro') echo "Libro"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'equipo') echo "Equipo"; else if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento') echo "Evento"; else echo "Sala" ?></h3>
 <?php
   $html = "";
   // Formulario de libros
@@ -219,6 +234,20 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'sala')
     $html .= "<form class='w3-container' action='agregar.php?tipo=sala' method='post' style='width: 50%' enctype='multipart/form-data'>";
     $html .= "<label>Nombre</label>";
     $html .= "<input class='w3-input' type='text' name='nombre' required/><br>";
+    $html .= "<input type='submit' value='Agregar' />";
+    $html .= "</form>";
+  }
+    else if (isset($_GET['tipo']) && $_GET['tipo'] == 'evento')
+  {
+    $html .= "<form class='w3-container' action='agregar.php?tipo=evento' method='post' style='width: 50%' enctype='multipart/form-data'>";
+    $html .= "<label>Nombre</label>";
+    $html .= "<input class='w3-input' type='text' name='nombre' required/><br>";
+    $html .= "<label>Descripción</label>";
+    $html .= "<input class='w3-input' type='text' name='nombre' required/><br>";
+    $html .= "<label>Fecha de Inicio</label>";
+    $html .= "<input class='w3-input' type='text' name='fechainicio' required/><br>";
+    $html .= "<label>Fecha de Fin</label>";
+    $html .= "<input class='w3-input' type='text' name='fechafin' required/><br>";
     $html .= "<input type='submit' value='Agregar' />";
     $html .= "</form>";
   }

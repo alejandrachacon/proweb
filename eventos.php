@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Bogota');
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,8 @@ session_start();
 
   <table class="w3-table-all w3-centered">
   <tr>
-    <th>Sala</th>
+    <th>Nombre</th>
+    <th>Lugar</th>
     <th>Fecha de Inicio</th>
     <th>Fecha de Fin</th>
   </tr>
@@ -55,20 +57,22 @@ session_start();
       
 
 
-    }
-
     if ($eventos)
     {
       while($row = mysqli_fetch_array($eventos)) // Tomar cada fila del resultado y mostrarlo como una fila de la tabla
       {
         $html .= "<tr>";
-        $html .= "<td>" . $row['sala_nombre'] . "</td>";
+        $html .= "<td>" . $row['nombre'] . "</td>";
+        $html .= "<td>" . $row['lugar'] . "</td>";
         $html .= "<td>" . $row['fechainicio'] . "</td>";
         $html .= "<td>" . $row['fechafin'] . "</td>";
-      
-        if (isset($_SESSION['rol']) && $row['disponibles'] > 0) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
+        $html .= "<td>" .strftime("%Y %m %d, %X %Z",mktime()). "</td>";
+      //date_diff(datetime1,datetime2,absolute);
+        //&& date_diff(mktime(),strtotime($row['fechainicio']),'absolute')
+
+        if (isset($_SESSION['rol']) ) // Solo mostrar el botón de solicitar cuando el usuario tiene sesion iniciada
         {
-          $html .= "<td>" . "<a href='solicitar.php?tipo=equipo&fabricante=" . $row['fabricante'] . "&nombre=" . $row['nombre'] . "'>Solicitar</a>" . "</td>";
+          $html .= "<td>" . "<a href='suscribir.php?id=" . $row['id'] . "'>Más información</a>" . "</td>";
         }
         else
         {
@@ -77,8 +81,8 @@ session_start();
         
         if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar botón de actualizar/eliminar al admin
         {
-          $html .= "<td>" . '<a href="actualizar.php?tipo=evento&nombre=' . $row['sala_nombre'] . '">Actualizar</a>' . "</td>";
-          $html .= "<td>" . '<a href="eliminar.php?tipo=evento&nombre=' . $row['sala_nombre'] . '">Eliminar</a>' . "</td>";
+          $html .= "<td>" . '<a href="actualizar.php?tipo=evento&nombre=' . $row['nombre'] . '">Actualizar</a>' . "</td>";
+          $html .= "<td>" . '<a href="eliminar.php?tipo=evento&nombre=' . $row['nombre'] . '">Eliminar</a>' . "</td>";
         }
         $html .= "</tr>";
       }

@@ -12,20 +12,20 @@ if (mysqli_connect_errno())
 }
 
 // SELECT de todos los eventos
-function get_evento()
+function get_eventos()
 {
   global $con;
-  $sql = "SELECT id, fechainicio, fechafin, lugar, sala_nombre FROM eventos ";
+  $sql = "SELECT id, fechainicio, fechafin, lugar, sala_nombre, nombre,informacion FROM eventos ";
   
   $result = mysqli_query($con, $sql);
 
   return $result;
 }
 
-function crear_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre)
+function crear_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre,$nombre,$informacion)
 {
   global $con;
-  $sql = "INSERT INTO `eventos`(`id`, `fechainicio`, `fechafin`, `lugar`, `sala_nombre`) VALUES ('$id', '$fechainicio', '$fechafin', '$lugar', '$sala_nombre')";
+  $sql = "INSERT INTO `eventos`(`id`, `fechainicio`, `fechafin`, `lugar`, `sala_nombre`, `nombre`, `informacion`) VALUES ('$id', '$fechainicio', '$fechafin', '$lugar', '$sala_nombre', '$nombre', '$informacion')";
   
   if (!mysqli_query($con, $sql))
   {
@@ -35,10 +35,11 @@ function crear_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre)
   return true;
 }
 
-function actualizar_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre)
+function actualizar_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre,$nombre,$informacion)
 {
   global $con;
-  $sql = "UPDATE `eventos` SET `fechainicio`='$fechainicio',`fechafin`='$fechafin',`lugar`=$lugar,`sala_nombre`=$sala_nombre WHERE `id`='$id'";
+  $sql = "UPDATE `eventos` SET `fechainicio`='$fechainicio',`fechafin`='$fechafin',`lugar`=$lugar,`sala_nombre`=$sala_nombre,`nombre`=$nombre
+  ,`informacion`=$informacion WHERE `id`='$id'";
 
   if (!mysqli_query($con, $sql))
   {
@@ -51,7 +52,7 @@ function actualizar_evento($id, $fechainicio, $fechafin, $lugar, $sala_nombre)
 function buscar_evento($id)
 {
   global $con;
-  $sql = "SELECT id, fechainicio, fechafin, lugar, sala_nombre FROM eventos WHERE id='$id' ";
+  $sql = "SELECT id, fechainicio, fechafin, lugar, sala_nombre, nombre,informacion FROM eventos WHERE id='$id' ";
   
   $result = mysqli_query($con, $sql);
   if (!$result)
