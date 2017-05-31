@@ -63,7 +63,7 @@ session_start();
 
   </tr>
   <?php
-
+    global $msg;
     $html = "";
         echo $msg;
         $row = buscar_evento($_GET['id']); // buscar todos los eventos vigentes
@@ -74,7 +74,7 @@ session_start();
         $html .= "<td>" . $row['nombre'] . "</td>";
         $html .= "<td>" . $row['informacion'] . "</td>";
 
-        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin') // Solo mostrar el botón de suscribir cuando el usuario tiene sesion iniciada
+        if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'usuario') // Solo mostrar el botón de suscribir cuando el usuario tiene sesion iniciada y es visitante
         {
           $html .= "<td>" . "<a href='suscribir.php?id=" . $row['id']."&subscribe=true'>Suscribir</a>" . "</td>";
         }

@@ -23,6 +23,18 @@ function get_salas()
   return $result;
 }
 
+// SELECT de todas las salas existentes
+function get_salas_disp()
+{
+  global $con;
+  $sql = "SELECT nombre, disponible FROM sala WHERE disponible > 0";
+  
+  $result = mysqli_query($con, $sql);
+
+  //mysqli_close($con);
+  return $result;
+}
+
 // Selecciona la primera sala disponible con el nombre especificados
 // Return: nombre de sala o false si no hay ninguna disponible
 function get_sala_disponible($nombre)
