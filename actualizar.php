@@ -205,7 +205,7 @@ else if (isset($_POST['nombre'], $_POST['fechainicio'], $_POST['fechafin'], $_PO
       $html .= "<label>Nombre</label>";
       $html .= "<input class='w3-input' type='text' name='nombre' value='" . $evento['nombre'] . "' required/> <br>";
       $html .= "<label>Descripción</label>";
-      $html .= "<input class='w3-input' type='text' name='Descripción' value='" . $evento['informacion'] . "' required/><br>";
+      $html .= "<input class='w3-input' type='text' name='informacion' value='" . $evento['informacion'] . "' required/><br>";
       $html .= "<label>Lugar</label>";
       $html .= "<input class='w3-input' type='text' name='lugar' value='" . $evento['lugar'] . "' required/>";
       $html .= "<label>Fecha de Inicio</label>";

@@ -130,8 +130,12 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
 
       if(isset($_POST['sala']))
       {
-      //  echo "<span style='color: red'>".$_POST['fechainicio'].",".$_POST['fechafin'].
-      //",".$_POST['lugar'].",".$_POST['sala'].",".$_POST['nombre'].",".$_POST['informacion']."</span>";
+
+       
+       /* solicitar_sala($_SESSION['usuario'],$_POST['sala'],$_POST['fechainicio']);
+        $sol = buscar_solicitud($_SESSION['usuario'],'sala',$_POST['sala']);
+        aprobar_sala($sol['id']);*/
+
         if (crear_evento($_POST['fechainicio'],$_POST['fechafin'],'biblioteca',$_POST['sala'],$_POST['nombre'],$_POST['informacion']))
       {
         $msg = "<span style='color: green'>Evento agregado</span>";
