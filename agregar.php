@@ -14,6 +14,8 @@ include_once dirname(__FILE__) . "/libros/libros_crud.php";
 include_once dirname(__FILE__) . "/salas/salas_crud.php";
 include_once dirname(__FILE__) . "/eventos/eventos_crud.php";
 
+include_once dirname(__FILE__) . "/solicitudes/solicitudes_crud.php";
+
 // Verificar si estamos agregando un equipo
 if (isset($_POST['fabricante'], $_POST['nombre'], $_POST['serie'], $_POST['numeroEquipos']) && $_GET['tipo'] == 'equipo')
 {
@@ -135,6 +137,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
         //$idSolicitud, $usuario, $tipo, $fechaVencimiento, $nombre
         aprobar_sala($sol['id'],$_SESSION['usuario'],'sala',$_POST['fechafin'],$_POST['sala']);
 
+
         if (crear_evento($_POST['fechainicio'],$_POST['fechafin'],'biblioteca',$_POST['sala'],$_POST['nombre'],$_POST['informacion']))
       {
         $msg = "<span style='color: green'>Evento agregado</span>";
@@ -145,6 +148,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       }
   }
   else{
+
     if(isset($_POST['lugar2'])){
 
      //$inf = crear_evento($_POST['fechainicio'],$_POST['fechafin'],$_POST['lugar2'],'',$_POST['nombre'],$_POST['informacion']);
@@ -156,7 +160,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       {
         $msg = "<span style='color: red'>Error al agregar evento</span>";
       }
-       
+
     }
   
     
@@ -340,7 +344,7 @@ else if (isset($_POST['nombre'], $_GET['tipo']) && $_GET['tipo'] == 'evento')
       $html .= "<label> Seleccione una Sala</label>";
       $html .= '
           <br>
-          <select name="sala" form="addEvent" required>';
+          <select name="sala" required>';
 
              $info = get_salas_disp(); // buscar todos las vigentes
 
