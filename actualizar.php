@@ -7,7 +7,7 @@ if (!isset($_SESSION['rol']) || (isset($_SESSION['rol']) && $_SESSION['rol'] != 
   exit();
 }
 
-if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro'))
+if (!isset($_GET['tipo']) || ($_GET['tipo'] != 'equipo' && $_GET['tipo'] != 'libro' && $_GET['tipo'] != 'evento'))
 {
   header('Location: index.php');
   exit();
@@ -203,15 +203,15 @@ else if (isset($_POST['nombre'], $_POST['fechainicio'], $_POST['fechafin'], $_PO
     {
       $html .= "<form class='w3-container' action='actualizar.php?tipo=evento&id=" . $evento['id'] . "' method='post' style='width: 50%' enctype='multipart/form-data'>";
       $html .= "<label>Nombre</label>";
-      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $libro['nombre'] . "' required/> <br>";
+      $html .= "<input class='w3-input' type='text' name='nombre' value='" . $evento['nombre'] . "' required/> <br>";
       $html .= "<label>Descripción</label>";
-      $html .= "<input class='w3-input' type='text' name='Descripción' value='" . $libro['informacion'] . "' required/><br>";
+      $html .= "<input class='w3-input' type='text' name='Descripción' value='" . $evento['informacion'] . "' required/><br>";
       $html .= "<label>Lugar</label>";
-      $html .= "<input class='w3-input' type='text' name='lugar' value='" . $libro['lugar'] . "' required/>";
+      $html .= "<input class='w3-input' type='text' name='lugar' value='" . $evento['lugar'] . "' required/>";
       $html .= "<label>Fecha de Inicio</label>";
-    /*  $html .= " dia <input class='w3-input' type='text' name='dia' value='" . $libro['fechainicio'] . "' required readonly/><br>";
+    /*  $html .= " dia <input class='w3-input' type='text' name='dia' value='" . $evento['fechainicio'] . "' required readonly/><br>";
       $html .= "<label>Editorial</label>";
-      $html .= "<input class='w3-input' type='text' name='editorial' value='" . $libro['fechafin'] . "' required/>";*/
+      $html .= "<input class='w3-input' type='text' name='editorial' value='" . $evento['fechafin'] . "' required/>";*/
       $html .= "<input type='submit' value='Actualizar' />";
       $html .= "</form>";
     }
